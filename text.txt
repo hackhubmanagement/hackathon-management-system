@@ -1,0 +1,3751 @@
+home.html code
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackHub | Where Innovation Meets Execution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="home-styles.css">
+</head>
+
+<body class="home-page">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <i class="fas fa-code"></i> Hackova
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#stats" class="nav-link">Stats</a>
+                <button class="btn-login" onclick="goToAuth('login')">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+
+                <button class="btn-register" onclick="goToAuth('register')">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+                <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" onclick="closeMobileMenu()">Home</a>
+            <a href="#features" onclick="closeMobileMenu()">Features</a>
+            <a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+            <a href="#stats" onclick="closeMobileMenu()">Stats</a>
+            <button class="btn-login" onclick="goToAuth('login')">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+
+            <button class="btn-register" onclick="goToAuth('register')">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fas fa-rocket"></i> Welcome to the Future of Innovation
+                </div>
+                <h1>Create.<span class="gradient-text">Build</span>.Elevate<br>Go Beyond Being a Student</h1>
+                <p>No matter where you stand today, this platform is here to take you further. Step into a space where
+                    ideas are explored, skills are sharpened, and creativity transforms into meaningful solutions.</p>
+                <div class="hero-buttons">`
+                    <button class="btn-primary" onclick="window.location.href='index.html'">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </button>
+                    <button class="btn-secondary" onclick="scrollToSection('how-it-works')">
+                        <i class="fas fa-play"></i> How It Works
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Participants</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Hackathons</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">2M+</span>
+                        <span class="stat-label">Lines of Code</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Hackathon">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2>Everything You Need to <span class="gradient-text">Succeed</span></h2>
+                <p>Powerful features to help you build, collaborate, and win</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
+                    <h3>Team Collaboration</h3>
+                    <p>Create teams, invite members, and collaborate seamlessly with built-in team management tools.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tasks"></i></div>
+                    <h3>Problem Statements</h3>
+                    <p>Access curated problem statements across multiple domains like AI, Web, Mobile, and IoT.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-upload"></i></div>
+                    <h3>Project Submission</h3>
+                    <p>Submit your projects with GitHub links, demos, and detailed documentation easily.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Live Leaderboard</h3>
+                    <p>Track your ranking in real-time and see how you compare with other teams.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-gavel"></i></div>
+                    <h3>Expert Judges</h3>
+                    <p>Get feedback from industry experts and experienced professionals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Exciting Prizes</h3>
+                    <p>Win amazing prizes, certificates, and opportunities for winners and participants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Simple Process</span>
+                <h2>How <span class="gradient-text">It Works</span></h2>
+                <p>Get started in four easy steps</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Register</h3>
+                    <p>Create your account as a student</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-users"></i></div>
+                    <h3>Create/Join Team</h3>
+                    <p>Form a team or join an existing one with a code</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-code"></i></div>
+                    <h3>Build & Submit</h3>
+                    <p>Develop your project and submit before deadline</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <div class="step-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Win & Celebrate</h3>
+                    <p>Get evaluated by judges and win amazing prizes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-label">Active Students</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-number" data-target="250">0</div>
+                    <div class="stat-label">Hackathons Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
+                    <div class="stat-number" data-target="1500">0</div>
+                    <div class="stat-label">Projects Submitted</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-label">Prizes Awarded</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your <span class="gradient-text">Journey?</span></h2>
+                <p>Join the community of innovators and build something amazing today</p>
+                <button class="btn-primary btn-large" onclick="window.location.href='index.html'">
+                    <i class="fas fa-rocket"></i> Get Started Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-code"></i> Hackova
+                    </div>
+                    <p>Empowering innovators to build the future through collaborative hackathons.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#stats">Stats</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#" onclick="showHelpCenter()">Help Center</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> hackova99@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9063681506</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; Hackova. Where Creativity Meets Code</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="home-script.js"></script>
+</body>
+
+</html>
+
+
+
+
+student.html code
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Hackathon Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</head>
+
+<body class="dashboard-page student-dashboard">
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <h1><i class="fas fa-laptop-code"></i> Hackova Portal</h1>
+                </div>
+
+                <div class="header-icons">
+                    <div class="dark-mode-toggle" onclick="document.body.classList.toggle('dark-mode')">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+
+                    <div class="notification-center">
+                        <div class="bell-icon" id="bellIcon">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </div>
+
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="dropdown-header">
+                                <h4>Notifications</h4>
+                                <button class="mark-read">Mark all read</button>
+                            </div>
+                            <div class="notifications-list">
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        .notification-center {
+                            position: relative;
+                            font-family: 'Inter', sans-serif;
+                        }
+
+                        .bell-icon {
+                            position: relative;
+                            width: 44px;
+                            height: 44px;
+                            background: white;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                            transition: 0.2s;
+                        }
+
+                        .bell-icon:hover {
+                            background: #f0f2f5;
+                        }
+
+                        .notification-badge {
+                            position: absolute;
+                            top: -5px;
+                            right: -5px;
+                            background: #ef4444;
+                            color: white;
+                            font-size: 11px;
+                            font-weight: bold;
+                            border-radius: 50%;
+                            width: 18px;
+                            height: 18px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .notification-dropdown {
+                            position: absolute;
+                            top: 55px;
+                            right: 0;
+                            width: 340px;
+                            background: white;
+                            border-radius: 20px;
+                            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+                            opacity: 0;
+                            visibility: hidden;
+                            transform: translateY(-10px);
+                            transition: all 0.25s ease;
+                            z-index: 100;
+                        }
+
+                        .notification-dropdown.open {
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateY(0);
+                        }
+
+                        .dropdown-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 16px 20px;
+                            border-bottom: 1px solid #e9ecef;
+                        }
+
+                        .dropdown-header h4 {
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+
+                        .mark-read {
+                            background: none;
+                            border: none;
+                            color: #4f46e5;
+                            font-size: 12px;
+                            cursor: pointer;
+                            font-weight: 500;
+                        }
+
+                        .notifications-list {
+                            max-height: 380px;
+                            overflow-y: auto;
+                        }
+
+                        .notification-item {
+                            display: flex;
+                            gap: 12px;
+                            padding: 14px 20px;
+                            border-bottom: 1px solid #f1f3f5;
+                            cursor: pointer;
+                            transition: background 0.2s;
+                        }
+
+                        .notification-item:hover {
+                            background: #f8fafc;
+                        }
+
+                        .notification-item.unread {
+                            background: #eef2ff;
+                        }
+
+                        .notif-icon {
+                            width: 36px;
+                            height: 36px;
+                            background: #eef2ff;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #4f46e5;
+                        }
+
+                        .notif-content {
+                            flex: 1;
+                        }
+
+                        .notif-title {
+                            font-weight: 600;
+                            font-size: 14px;
+                            margin-bottom: 4px;
+                        }
+
+                        .notif-message {
+                            font-size: 13px;
+                            color: #5b6e8c;
+                            margin-bottom: 4px;
+                        }
+
+                        .notif-time {
+                            font-size: 11px;
+                            color: #8b9ab0;
+                        }
+                    </style>
+
+
+                    <div class="top-right-profile" id="profileMenu">
+                        <div class="profile-trigger" onclick="toggleProfileDropdown()">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-dropdown">
+                            <h4><i class="fas fa-user"></i> Profile Info</h4>
+                            <p>Name: <span id="hdrNameDisplay">Loading...</span></p>
+                            <p>Student ID: <span id="hdrIdDisplay">...</span></p>
+                            <p>College: <span id="hdrCollegeDisplay">...</span></p>
+                            <p>Role: <span>Student</span></p>
+                        </div>
+                    </div>
+
+                    <div class="settings-menu" id="settingsMenu">
+                        <div class="settings-logo" onclick="toggleSettingsDropdown()">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="settings-dropdown">
+                            <p onclick="openProfile()"> Profile</p>
+                            <p onclick="openHelp()"> Help Center</p>
+                            <p onclick="logout()"> Logout</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="sidebar" id="mainSidebar">
+            <button class="sidebar-close-arrow" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="sidebar-user-header">
+                <div class="sidebar-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 id="sidebarName">Student</h3>
+                <p>ID: <span id="sidebarId">...</span></p>
+                <p>College: <span id="sidebarCollege">...</span></p>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('dashboard-summary', event); closeSidebar();"
+                        class="nav-link active">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a></li>
+                <li><a href="#" onclick="showSection('available-hackathons'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-trophy"></i> Available Hackathons
+                    </a></li>
+                <li><a href="#" onclick="showSection('my-team', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-users"></i> My Team
+                    </a></li>
+                <li><a href="#" onclick="showSection('problem-statements', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-tasks"></i> Problem Statements
+                    </a></li>
+                <li><a href="#" onclick="showSection('submit-project', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-upload"></i> Submit Project
+                    </a></li>
+                <li><a href="#" onclick="showSection('announcements', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-bullhorn"></i> Announcements
+                    </a></li>
+                <li><a href="#" onclick="showSection('leaderboard', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-chart-line"></i> Leaderboard
+                    </a></li>
+                <li><a href="#" onclick="showSection('my-submissions', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-history"></i> My Submissions
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Dashboard Summary Section -->
+            <section id="dashboard-summary" class="content-section active">
+                <div class="section-pill">
+                    <i class="fas fa-chart-pie"></i> STUDENT DASHBOARD
+                </div>
+
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    class="dashboard-banner" alt="Hackathon Banner">
+
+                <div class="portal-layout">
+                    <div class="portal-left-col">
+                        <div class="stat-grid">
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <h4>Participated</h4>
+                                <p id="statParticipated">0</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <h4>Completed</h4>
+                                <p id="statCompleted">0</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h4>Won</h4>
+                                <p id="statWon">0</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <h4>Lost</h4>
+                                <p id="statLost">0</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3><i class="fas fa-chart-bar"></i>Team Performance Overview</h3>
+                            <canvas id="performanceChart" height="100"></canvas>
+                        </div>
+
+                        <div class="section-pill" style="margin-top: 20px;">
+                            <i class="fas fa-compass"></i> QUICK ACTIONS
+                        </div>
+                        <div class="portal-grid">
+                            <div class="portal-card" onclick="showSection('available-hackathons')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="portal-card-title">HACKATHONS</div>
+                            </div>
+                            <div class="portal-card" onclick="showSection('my-team')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="portal-card-title">MY TEAM</div>
+                            </div>
+                            <div class="portal-card" onclick="showSection('problem-statements')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="portal-card-title">PROBLEMS</div>
+                            </div>
+                            <div class="portal-card" onclick="showSection('submit-project')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                                <div class="portal-card-title">SUBMIT</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portal-right-col">
+                        <div class="portal-right-col-header">
+                            <i class="fas fa-bullhorn"></i> LATEST ANNOUNCEMENTS
+                        </div>
+                        <div id="sideAnnouncementsBox">
+                            <div class="portal-side-item" style="text-align:center; color: var(--text-muted);">
+                                <i class="fas fa-info-circle"></i> No Announcements
+                            </div>
+                        </div>
+
+                        <div class="portal-right-col-header">
+                            <i class="fas fa-calendar-alt"></i> UPCOMING EVENTS
+                        </div>
+
+                        <div id="eventsBox"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Hackathons Section -->
+            <section id="available-hackathons" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-trophy"></i> Available Hackathons</h2>
+                </div>
+                <div id="hackathonsList" class="teams-grid"></div>
+            </section>
+
+            <!-- My Team Section with Chat Box -->
+            <section id="my-team" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-users"></i> My Team</h2>
+                </div>
+
+                <!-- Two Column Layout: Team Info + Chat Box -->
+                <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                    <!-- Left Column: Team Details & Members -->
+                    <div style="flex: 1.2; min-width: 280px;">
+                        <div class="my-team" id="currentTeamInfo">
+                            <div id="teamDetails"></div>
+                            <!-- Team Members Box -->
+                            <div id="teamMembersBox" style="margin-top: 20px;">
+                                <h4><i class="fas fa-users"></i> Team Members</h4>
+                                <div id="teamMembersList">Loading members...</div>
+                            </div>
+                        </div>
+                        <div class="create-team" id="createTeamForm">
+                            <h3><i class="fas fa-plus-circle"></i> Create New Team</h3>
+                            <form onsubmit="createTeam(event)">
+                                <div class="form-group">
+                                    <label><i class="fas fa-tag"></i> Team Name</label>
+                                    <input type="text" id="newTeamName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-align-left"></i> Team Description</label>
+                                    <textarea id="teamDescription" rows="3"
+                                        placeholder="Tell others about your team..."></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">
+                                    <i class="fas fa-plus"></i> Create Team
+                                </button>
+                            </form>
+                            <div class="team-code-info">
+                                <h4><i class="fas fa-key"></i> Join Team with Code</h4>
+                                <div class="form-group">
+                                    <input type="text" id="joinTeamCode" placeholder="Enter team code">
+                                    <button onclick="joinTeam()" class="submit-btn" style="margin-top: 10px;">
+                                        <i class="fas fa-sign-in-alt"></i> Join Team
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Team Chat Box -->
+                    <div style="flex: 1; min-width: 320px;">
+                        <div class="chat-container">
+                            <div class="chat-header">
+                                <i class="fas fa-comments"></i>
+                                <span>Team Chat 💬</span>
+                                <i class="fas fa-users" style="font-size: 14px; opacity: 0.7;"></i>
+                            </div>
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="message received">
+                                    <div class="message-bubble">Hey team! Ready for the hackathon? 🚀</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                                <div class="message sent">
+                                    <div class="message-bubble">Absolutely! Let's crush it 💪</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" id="chatInput" placeholder="Type a message..." class="chat-input">
+                                <button id="sendChatBtn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Box Styles -->
+                <style>
+                    .chat-container {
+                        background: var(--card-bg, white);
+                        border-radius: 24px;
+                        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+                        display: flex;
+                        flex-direction: column;
+                        height: 480px;
+                        overflow: hidden;
+                        font-family: 'Inter', sans-serif;
+                        border: 1px solid var(--border-color, #e2e8f0);
+                    }
+
+                    .chat-header {
+                        background: var(--card-bg, white);
+                        padding: 16px 20px;
+                        border-bottom: 1px solid var(--border-color, #edf2f7);
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        font-weight: 600;
+                        color: var(--text-primary, #1e293b);
+                    }
+
+                    .chat-header i:first-child {
+                        color: #4f46e5;
+                        font-size: 20px;
+                    }
+
+                    .chat-header span {
+                        flex: 1;
+                        font-size: 16px;
+                    }
+
+                    .chat-messages {
+                        flex: 1;
+                        padding: 20px;
+                        overflow-y: auto;
+                        background: var(--bg-light, #fafcff);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                    }
+
+                    .message {
+                        display: flex;
+                        flex-direction: column;
+                        max-width: 80%;
+                    }
+
+                    .message.sent {
+                        align-self: flex-end;
+                    }
+
+                    .message.received {
+                        align-self: flex-start;
+                    }
+
+                    .message-bubble {
+                        padding: 10px 14px;
+                        border-radius: 20px;
+                        font-size: 14px;
+                        line-height: 1.4;
+                        word-wrap: break-word;
+                    }
+
+                    .message.sent .message-bubble {
+                        background: #4f46e5;
+                        color: white;
+                        border-bottom-right-radius: 4px;
+                    }
+
+                    .message.received .message-bubble {
+                        background: #f1f3f7;
+                        color: #1e293b;
+                        border-bottom-left-radius: 4px;
+                    }
+
+                    body.dark-mode .message.received .message-bubble {
+                        background: #334155;
+                        color: #f1f5f9;
+                    }
+
+                    .message-time {
+                        font-size: 10px;
+                        color: #8b9ab0;
+                        margin-top: 4px;
+                        margin-inline: 8px;
+                    }
+
+                    .chat-input-area {
+                        display: flex;
+                        padding: 16px;
+                        background: var(--card-bg, white);
+                        border-top: 1px solid var(--border-color, #edf2f7);
+                        gap: 10px;
+                    }
+
+                    .chat-input {
+                        flex: 1;
+                        padding: 12px 16px;
+                        border: 1px solid var(--border-color, #e2e8f0);
+                        border-radius: 40px;
+                        outline: none;
+                        font-size: 14px;
+                        background: var(--card-bg, white);
+                        color: var(--text-primary, #1e293b);
+                        transition: 0.2s;
+                    }
+
+                    .chat-input:focus {
+                        border-color: #4f46e5;
+                        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+                    }
+
+                    .send-btn {
+                        background: #4f46e5;
+                        border: none;
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        color: white;
+                        cursor: pointer;
+                        transition: 0.2s;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .send-btn:hover {
+                        background: #4338ca;
+                        transform: scale(0.96);
+                    }
+                </style>
+            </section>
+
+            <section id="problem-statements" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-tasks"></i> Problem Statements</h2>
+                </div>
+                <div id="problemsList" class="problems-list"></div>
+            </section>
+
+            <section id="submit-project" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-upload"></i> Submit Project</h2>
+                </div>
+                <form class="hackathon-form" onsubmit="submitProject(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Select Hackathon</label>
+                        <select id="projectHackathon" required>
+                            <option value="">Choose hackathon...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Project Name</label>
+                        <input type="text" id="projectName" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-align-left"></i> Project Description</label>
+                        <textarea id="projectDescription" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fab fa-github"></i> Project Link</label>
+                        <input type="url" id="githubRepo" placeholder="https://github.com/username/project" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-code"></i> Domain</label>
+                        <select id="projectDomain" required>
+                            <option value="">Select Domain</option>
+                            <option value="AI">Artificial Intelligence</option>
+                            <option value="Web">Web Development</option>
+                            <option value="Mobile">Mobile App</option>
+                            <option value="IoT">Internet of Things</option>
+                            <option value="Blockchain">Blockchain</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-video"></i> Demo Video Link (Optional)</label>
+                        <input type="url" id="demoLink" placeholder="https://youtube.com/watch?v=...">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Project
+                    </button>
+                </form>
+            </section>
+
+            <section id="announcements" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-bullhorn"></i> Announcements</h2>
+                </div>
+                <div id="studentAnnouncements" class="announcements-list"></div>
+            </section>
+
+            <section id="leaderboard" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-chart-line"></i> Leaderboard</h2>
+                </div>
+                <div class="leaderboard-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team Name</th>
+                                <th>College</th>
+                                <th>Project</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentLeaderboardBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="my-submissions" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-history"></i> My Submissions</h2>
+                </div>
+                <div id="mySubmissionsList" class="teams-list"></div>
+            </section>
+        </main>
+    </div>
+   <div id="profileBox" class="popup-box">
+        <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+
+        <form class="profile-form" onsubmit="updateProfile(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="profileName" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>College Name</label>
+                <input type="text" id="profileCollege" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+                <select id="profileDept" onchange="saveProfileChanges()">
+                    <option>Computer Science</option>
+                    <option>Information Technology</option>
+                    <option>Electronics</option>
+                    <option>Mechanical</option>
+                    <option>Civil</option>
+                    <option>Electrical</option>
+                    <option>MBA</option>
+                    <option>BCA</option>
+                    <option>MCA</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Year</label>
+                <select id="profileYear" onchange="saveProfileChanges()">
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <input type="text" id="profileSkills" placeholder="JavaScript, Python...">
+            </div>
+
+            <div class="form-group">
+                <label>GitHub</label>
+                <input type="url" id="profileGithub" placeholder="https://github.com/...">
+            </div>
+
+            <button type="submit" class="submit-btn">Save</button>
+            <button onclick="closeAll()" class="submit-btn close-btn">
+                Close
+            </button>
+        </form>
+
+
+    </div>
+
+
+    <div id="helpBox" class="popup-box">
+        <h3>Help Center</h3>
+        <p>Email: support@hackova.com</p>
+        <p>Phone: +91 9876543210</p>
+
+        <button onclick="closeAll()">Close</button>
+    </div>
+
+
+</body>
+
+</html>
+
+
+
+index.html code
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="login-page">
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" onclick="document.body.classList.toggle('dark-mode')">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1><i class="fas fa-code"></i> Hackathon Management</h1>
+                <p>Innovate · Create · Collaborate</p>
+            </div>
+
+            <!-- Login Section -->
+            <div id="loginSection">
+                <div class="login-tabs">
+                    <button class="tab-btn active" onclick="switchTab('student')">
+                        <i class="fas fa-user-graduate"></i> Student Login
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('admin')">
+                        <i class="fas fa-user-tie"></i> Admin Login
+                    </button>
+                </div>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" placeholder="your.email@college.edu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <div class="forgot-password">
+                            <a href="#" onclick="showForgotPassword()">
+                                <i class="fas fa-question-circle"></i> Forgot Password?
+                            </a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+
+                    <p class="register-link" id="registerLinkContainer">
+                        New user?
+                        <a href="#" onclick="showRegistration()">
+                            Register as Student <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Registration Section -->
+            <div id="registrationSection" style="display: none;">
+                <div class="login-header">
+                    <h2 id="registrationTitle">Student Registration</h2>
+                    <p>Student ID will be auto-generated</p>
+                </div>
+
+                <form onsubmit="handleRegistration(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="regName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-university"></i> College Name</label>
+                        <input type="text" id="regCollegeName" placeholder="Enter your college name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="regEmail" placeholder="your.email@college.edu" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="regPassword" placeholder="Create password" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Confirm</label>
+                            <input type="password" id="regConfirmPassword" placeholder="Confirm password" required>
+                        </div>
+                    </div>
+
+                    <div id="studentRegFields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-building"></i> Department</label>
+                                <select id="regDepartment">
+                                    <option value="">Select Department</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Information Technology">Information Technology</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Mechanical">Mechanical</option>
+                                    <option value="Civil">Civil</option>
+                                    <option value="Electrical">Electrical</option>
+                                    <option value="MBA">MBA</option>
+                                    <option value="BCA">BCA</option>
+                                    <option value="MCA">MCA</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar"></i> Year</label>
+                                <select id="regYear">
+                                    <option value="">Select Year</option>
+                                    <option value="1">1st Year</option>
+                                    <option value="2">2nd Year</option>
+                                    <option value="3">3rd Year</option>
+                                    <option value="4">4th Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+
+                    <p class="register-link">
+                        Already have an account?
+                        <a href="#" onclick="showLogin()">
+                            Login here <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Forgot Password Section -->
+            <div id="forgotSection" style="display: none;">
+                <div class="login-header">
+                    <h2><i class="fas fa-key"></i> Reset Password</h2>
+                    <p>Enter your email and new password</p>
+                </div>
+
+                <form onsubmit="handleForgotPassword(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> New Password</label>
+                        <input type="password" id="forgotPassword" placeholder="Enter new password" required>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sync"></i> Update Password
+                    </button>
+
+                    <p class="register-link">
+                        Remember password?
+                        <a href="#" onclick="showLogin()">
+                            Login here <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+admin.html code
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Hackathon Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+
+<body class="dashboard-page admin-dashboard">
+
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1><i class="fas fa-crown"></i> Hackova Admin Portal</h1>
+                </div>
+
+                <div class="header-icons">
+                    <div class="dark-mode-toggle" onclick="document.body.classList.toggle('dark-mode')">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="top-right-profile" id="profileMenu">
+                        <div class="profile-trigger" onclick="toggleProfileDropdown()">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-dropdown">
+                            <h4><i class="fas fa-user"></i> Admin Info</h4>
+                            <p>Name: <span id="hdrAdminNameDisplay">Loading...</span></p>
+                            <p>Role: <span id="hdrAdminRoleDisplay">...</span></p>
+                        </div>
+                    </div>
+
+                    <div class="settings-menu" id="settingsMenu">
+                        <div class="settings-logo" onclick="toggleSettingsDropdown()">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="settings-dropdown">
+                            <h3><i class="fas fa-user-cog"></i> Admin Settings</h3>
+                            <form class="profile-form admin-profile-form" onsubmit="updateAdminProfile(event)">
+                                <div class="form-group">
+                                    <label><i class="fas fa-user"></i> Admin Name</label>
+                                    <input type="text" id="adminProfileName" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-envelope"></i> Admin Email</label>
+                                    <input type="email" id="adminProfileEmail" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-briefcase"></i> Role / Position</label>
+                                    <input type="text" id="adminProfileRole" placeholder="e.g., Technical Coordinator"
+                                        required>
+                                </div>
+                                <button type="submit" class="submit-btn" style="width:100%; margin-bottom: 10px;">
+                                    <i class="fas fa-save"></i> Save Profile
+                                </button>
+                            </form>
+                            <button onclick="logout()" class="submit-btn" style="width:100%;">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="sidebar" id="mainSidebar">
+            <button class="sidebar-close-arrow" onclick="closeSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="sidebar-user-header">
+                <div class="sidebar-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3 id="sidebarName">Admin</h3>
+                <p>Role: <span id="sidebarRole">...</span></p>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('dashboard-overview'); closeSidebar();" class="nav-link active">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a></li>
+                <li><a href="#" onclick="showSection('student-database'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-users"></i> Student Database
+                    </a></li>
+                <li><a href="#" onclick="showSection('hackathon-creation'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Create Hackathon
+                    </a></li>
+                <li><a href="#" onclick="showSection('team-management'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-users-cog"></i> Team Management
+                    </a></li>
+                <li><a href="#" onclick="showSection('problem-statements'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-tasks"></i> Problem Statements
+                    </a></li>
+                <li><a href="#" onclick="showSection('submissions'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-upload"></i> Submissions
+                    </a></li>
+                <li><a href="#" onclick="showSection('judge-panel'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-gavel"></i> Judge Panel
+                    </a></li>
+                <li><a href="#" onclick="showSection('announcements'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-bullhorn"></i> Announcements
+                    </a></li>
+                <li><a href="#" onclick="showSection('leaderboard'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-chart-line"></i> Leaderboard
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Dashboard Overview Section -->
+            <section id="dashboard-overview" class="content-section active">
+                <div class="section-pill">
+                    <i class="fas fa-chart-pie"></i> ADMIN DASHBOARD
+                </div>
+
+                <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                    class="dashboard-banner" alt="Admin Banner">
+
+                <div class="portal-layout">
+                    <div class="portal-left-col">
+                        <div class="stat-grid">
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <h4>Students</h4>
+                                <p id="totalStudents">0</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h4>Active Hacks</h4>
+                                <p id="activeHackathons">0</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4>Total Teams</h4>
+                                <p id="totalTeams">0</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-signature"></i>
+                                </div>
+                                <h4>Registrations</h4>
+                                <p id="totalRegistrations">0</p>
+                            </div>
+                        </div>
+
+                        <div class="section-pill" style="margin-top: 20px;">
+                            <i class="fas fa-cog"></i> MANAGEMENT
+                        </div>
+                        <div class="portal-grid">
+                            <div class="portal-card" onclick="showSection('student-database')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="portal-card-title">STUDENTS</div>
+                            </div>
+                            <div class="portal-card" onclick="showSection('team-management')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                <div class="portal-card-title">TEAMS</div>
+                            </div>
+                            <div class="portal-card" onclick="showSection('hackathon-creation')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="portal-card-title">HACKATHONS</div>
+                            </div>
+                            <div class="portal-card" onclick="showSection('announcements')">
+                                <div class="portal-card-icon">
+                                    <i class="fas fa-bullhorn"></i>
+                                </div>
+                                <div class="portal-card-title">ANNOUNCE</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portal-right-col">
+                        <div class="portal-right-col-header">
+                            <i class="fas fa-history"></i> SYSTEM LOGS
+                        </div>
+                        <div id="systemLogs" class="portal-side-item">
+                            Loading logs...
+                        </div>
+
+                        <div class="portal-right-col-header">
+                            <i class="fas fa-bolt"></i> QUICK ACTION
+                        </div>
+                        <div class="portal-side-item" style="text-align:center; padding: 20px;">
+                            <button onclick="showSection('hackathon-creation')" class="submit-btn" style="width:100%">
+                                <i class="fas fa-plus"></i> Create Hackathon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Student Database Section -->
+            <section id="student-database" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-users"></i> Student Database</h2>
+                </div>
+
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <select id="deptFilter" onchange="filterStudents()">
+                            <option value="">All Departments</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="Civil">Civil</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="MBA">MBA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="MCA">MCA</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="yearFilter" onchange="filterStudents()">
+                            <option value="">All Years</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <input type="text" id="collegeFilter" placeholder="Filter by college name..."
+                            onkeyup="filterStudents()">
+                    </div>
+                    <div class="filter-group">
+                        <input type="text" id="searchStudent" placeholder="Search by name or email..."
+                            onkeyup="filterStudents()">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="student-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>College</th>
+                                <th>Department</th>
+                                <th>Year</th>
+                                <th>Student ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Other sections remain the same -->
+            <section id="hackathon-creation" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-plus-circle"></i> Create Hackathon Event</h2>
+                </div>
+
+                <form class="hackathon-form" onsubmit="createHackathon(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Event Name</label>
+                        <input type="text" id="hackathonName" placeholder="e.g., Techathon 2024" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-palette"></i> Theme</label>
+                        <input type="text" id="hackathonTheme" placeholder="e.g., AI for Social Good" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-file-alt"></i> Rules & Guidelines</label>
+                        <textarea id="hackathonRules" rows="5"
+                            placeholder="Enter rules, guidelines, and judging criteria" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-check"></i> Registration Deadline</label>
+                            <input type="datetime-local" id="registrationDeadline" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-times"></i> Submission Deadline</label>
+                            <input type="datetime-local" id="submissionDeadline" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-users"></i> Maximum Team Size</label>
+                            <input type="number" id="teamSize" value="4" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-money-bill"></i> Prize Pool</label>
+                            <input type="text" id="prizePool" placeholder="e.g. ₹10,000" required>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i> Create Hackathon
+                    </button>
+                </form>
+
+                <h3 style="margin: 30px 0 20px;">Existing Hackathons</h3>
+                <div id="eventsList"></div>
+            </section>
+
+            <section id="team-management" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-users-cog"></i> Team Management</h2>
+                </div>
+                <div class="teams-list">
+                    <div id="teamsContainer"></div>
+                </div>
+            </section>
+
+            <section id="problem-statements" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-tasks"></i> Problem Statements</h2>
+                </div>
+
+                <form class="hackathon-form" onsubmit="addProblemStatement(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-heading"></i> Problem Title</label>
+                        <input type="text" id="problemTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-align-left"></i> Description</label>
+                        <textarea id="problemDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-code"></i> Domain</label>
+                        <select id="problemDomain" required>
+                            <option value="">Select Domain</option>
+                            <option value="AI">Artificial Intelligence</option>
+                            <option value="Web">Web Development</option>
+                            <option value="Mobile">Mobile App</option>
+                            <option value="IoT">IoT</option>
+                            <option value="Blockchain">Blockchain</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i> Add Problem Statement
+                    </button>
+                </form>
+
+                <div class="problems-list" id="problemsList"></div>
+            </section>
+
+            <section id="submissions" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-upload"></i> Project Submissions</h2>
+                </div>
+
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <select id="submissionFilter" onchange="filterSubmissions()">
+                            <option value="all">All Submissions</option>
+                            <option value="pending">Pending Review</option>
+                            <option value="reviewed">Reviewed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="submissionsList" class="teams-list"></div>
+            </section>
+
+            <section id="judge-panel" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-gavel"></i> Judge Panel Management</h2>
+                </div>
+
+                <form class="hackathon-form" onsubmit="addJudge(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Judge Name</label>
+                        <input type="text" id="judgeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="judgeEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-brain"></i> Expertise</label>
+                        <input type="text" id="judgeExpertise" placeholder="e.g., AI, Web Development" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i> Add Judge
+                    </button>
+                </form>
+
+                <div class="judges-list" id="judgesList"></div>
+            </section>
+
+            <section id="announcements" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-bullhorn"></i> Announcements</h2>
+                </div>
+
+                <form class="hackathon-form" onsubmit="sendAnnouncement(event)">
+                    <div class="form-group">
+                        <label><i class="fas fa-heading"></i> Title</label>
+                        <input type="text" id="announcementTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-align-left"></i> Message</label>
+                        <textarea id="announcementMessage" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-flag"></i> Priority</label>
+                        <select id="announcementPriority">
+                            <option value="info">Information</option>
+                            <option value="warning">Warning</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Announcement
+                    </button>
+                </form>
+
+                <div class="announcements-list" id="announcementsList"></div>
+            </section>
+
+            <section id="leaderboard" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-chart-line"></i> Leaderboard</h2>
+                </div>
+
+                <div class="leaderboard-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Team Name</th>
+                                <th>Project</th>
+                                <th>College</th>
+                                <th>Score</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+</body>
+
+</html>
+
+
+home-style.css
+/* Home Page Styles - HackHub */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary-500: #3b82f6;
+    --primary-600: #2563eb;
+    --secondary-500: #8b5cf6;
+    --success-500: #10b981;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --transition: all 0.2s ease;
+}
+
+body.dark-mode {
+    --bg-primary: #1e1e2a;
+    --bg-secondary: #2a2a35;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --border-color: #3f3f46;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-secondary);
+    border-radius: 50px;
+    padding: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode-toggle i {
+    padding: 6px 10px;
+    border-radius: 50px;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+body.dark-mode .dark-mode-toggle .fa-moon,
+body:not(.dark-mode) .dark-mode-toggle .fa-sun {
+    background: var(--primary-500);
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: 70px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo i {
+    background: none;
+    -webkit-text-fill-color: var(--primary-500);
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    color: var(--primary-500);
+}
+
+.btn-login,
+.btn-register {
+    padding: 8px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-size: 14px;
+}
+
+.btn-login {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-login:hover {
+    border-color: var(--primary-500);
+    color: var(--primary-500);
+}
+
+.btn-register {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+.mobile-menu a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.mobile-menu .btn-login,
+.mobile-menu .btn-register {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 80px 40px;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-radius: 50px;
+    color: var(--primary-500);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 12px 28px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 16px;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-500);
+    color: var(--primary-500);
+}
+
+.btn-large {
+    padding: 16px 36px;
+    font-size: 18px;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 40px;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary-500);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-radius: 50px;
+    color: var(--primary-500);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.section-header p {
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+/* Features Section */
+.features-section {
+    padding: 80px 40px;
+    background: var(--bg-primary);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: var(--bg-secondary);
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--primary-500);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.feature-icon i {
+    font-size: 32px;
+    color: var(--primary-500);
+}
+
+.feature-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    padding: 80px 40px;
+    background: var(--bg-secondary);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    text-align: center;
+    position: relative;
+    padding: 32px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 20px;
+}
+
+.step-icon i {
+    font-size: 28px;
+    color: var(--primary-500);
+}
+
+.step-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.step-card p {
+    color: var(--text-secondary);
+}
+
+/* Stats Section */
+.stats-section {
+    padding: 80px 40px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.stat-item .stat-icon i {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.stat-item .stat-number {
+    font-size: 48px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.stat-item .stat-label {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 40px;
+    background: var(--bg-primary);
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.cta-content p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+/* Footer */
+.footer {
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+    padding: 60px 40px 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+}
+
+.footer-section p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.footer-section h4 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-section a {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.footer-section a:hover {
+    color: var(--primary-500);
+}
+
+.social-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background: var(--primary-500);
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .mobile-menu.show {
+        display: flex;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 32px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .section-header h2 {
+        font-size: 28px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+}
+
+/* FORCE WHITE COLOR FOR STATS SECTION */
+.stats-section .stat-number {
+    color: #ffffff !important;
+}
+
+.stats-section .stat-label {
+    color: #ffffff !important;
+}
+
+.stats-section .stat-icon i {
+    color: #ffffff !important;
+}
+
+
+style.css
+/* Modern Light Theme CSS for Hackathon Management System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    --warning-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    --danger-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --success-color: #48bb78;
+    --warning-color: #fbbf24;
+    --danger-color: #f87171;
+    --info-color: #60a5fa;
+
+    --bg-light: #f9fafc;
+    --card-bg: #ffffff;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --text-muted: #a0aec0;
+    --border-color: #e2e8f0;
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* ===== NEW DARK MODE (Same as home.html) ===== */
+body.dark-mode {
+    --bg-light: #1e1e2a;
+    --card-bg: #2a2a35;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --border-color: #3f3f46;
+    background-color: #1e1e2a;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.login-page .dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* ===== MODERN DARK MODE TOGGLE (HOME STYLE) ===== */
+
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-light);
+    border-radius: 50px;
+    padding: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode-toggle i {
+    padding: 6px 10px;
+    border-radius: 50px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+/* Active highlight */
+body.dark-mode .dark-mode-toggle .fa-moon,
+body:not(.dark-mode) .dark-mode-toggle .fa-sun {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Login page position (keep this) */
+.login-page .dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Login Page Styles */
+.login-page {
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.login-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    padding: 40px;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.login-tabs {
+    display: flex;
+    gap: 10px;
+    background: var(--bg-light);
+    padding: 5px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-btn i {
+    margin-right: 8px;
+}
+
+.tab-btn.active {
+    background: var(--card-bg);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.form-group label i {
+    color: var(--primary-color);
+    margin-right: 6px;
+    width: 18px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    transition: all 0.3s;
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--primary-gradient);
+    color: white;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-btn i {
+    font-size: 18px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.register-link {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: 8px;
+}
+
+.forgot-password a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.forgot-password a:hover {
+    color: var(--primary-color);
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    min-height: 100vh;
+    background: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-header {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-toggle {
+    font-size: 24px;
+    color: var(--text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.menu-toggle:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+}
+
+.header-content h1 {
+    font-size: 24px;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Profile & Settings Dropdowns */
+.top-right-profile,
+.settings-menu {
+    position: relative;
+}
+
+.profile-trigger,
+.settings-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.profile-trigger {
+    font-size: 20px;
+    color: var(--text-primary);
+}
+
+.settings-logo {
+    font-size: 22px;
+    color: var(--text-primary);
+}
+
+.profile-trigger:hover,
+.settings-logo:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.profile-dropdown,
+.settings-dropdown {
+    position: absolute;
+    right: 0;
+    top: 120%;
+    width: 260px;
+    /* smaller width */
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    /* less padding */
+    display: none;
+    z-index: 1000;
+    animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.top-right-profile.active .profile-dropdown,
+.settings-menu.active .settings-dropdown {
+    display: block;
+}
+
+.profile-dropdown h4,
+.settings-dropdown h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.profile-dropdown p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.profile-dropdown p span {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 80px;
+    left: -300px;
+    width: 280px;
+    height: calc(100vh - 80px);
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 99;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-close-arrow {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.sidebar-close-arrow:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+}
+
+.sidebar-user-header {
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 40px;
+    color: white;
+}
+
+.sidebar-user-header h3 {
+    color: var(--text-primary);
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.sidebar-user-header p {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 25px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.nav-link i {
+    width: 20px;
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+.nav-link:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+}
+
+.nav-link.active {
+    background: var(--bg-light);
+    color: var(--primary-color);
+    border-left-color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    margin-left: 0;
+    transition: margin-left 0.3s;
+}
+
+.content-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Section Header */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    color: var(--text-primary);
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-header h2 i {
+    color: var(--primary-color);
+    font-size: 28px;
+}
+
+.back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Section Pill */
+.section-pill {
+    background: var(--primary-gradient);
+    color: white;
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 auto 30px;
+    width: fit-content;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Dashboard Banner */
+.dashboard-banner {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Portal Layout */
+.portal-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.portal-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.portal-right-col {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.portal-right-col-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 15px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.portal-right-col-header i {
+    font-size: 18px;
+}
+
+.portal-side-item {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.portal-side-item:last-child {
+    border-bottom: none;
+}
+
+/* Stat Grid */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.stat-box {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 25px 20px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: white;
+    font-size: 20px;
+}
+
+.stat-box h4 {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-box p {
+    color: var(--text-primary);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Portal Grid Cards */
+.portal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.portal-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-md);
+}
+
+.portal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-color);
+}
+
+.portal-card-icon {
+    padding: 30px 20px 15px;
+    text-align: center;
+    font-size: 48px;
+    color: var(--primary-color);
+}
+
+.portal-card-title {
+    background: var(--bg-light);
+    padding: 15px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Cards */
+.hackathon-card,
+.team-card,
+.problem-card,
+.judge-card,
+.announcement-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+}
+
+.hackathon-card:hover,
+.team-card:hover,
+.problem-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.hackathon-card h3,
+.team-card h3,
+.problem-card h4,
+.judge-card h4,
+.announcement-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hackathon-card p,
+.team-card p,
+.problem-card p,
+.judge-card p,
+.announcement-card p {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.hackathon-card p strong,
+.team-card p strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Buttons */
+.submit-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--primary-gradient);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.submit-btn i {
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.submit-btn.small {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.submit-btn.outline {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.submit-btn.outline:hover {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+/* Tables */
+.table-container {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background: var(--bg-light);
+    color: var(--text-primary);
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+table tr:hover td {
+    background: var(--bg-light);
+}
+
+/* Filters */
+.filters-container {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    border: 1px solid var(--border-color);
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Leaderboard */
+.leaderboard-table {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.leaderboard-table table th {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.leaderboard-table tr:nth-child(1) td {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+    font-weight: 600;
+}
+
+.leaderboard-table tr:nth-child(2) td {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.1) 0%, rgba(192, 192, 192, 0.05) 100%);
+}
+
+.leaderboard-table tr:nth-child(3) td {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.1) 0%, rgba(205, 127, 50, 0.05) 100%);
+}
+
+/* Team Container */
+.team-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.my-team,
+.create-team {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    border: 1px solid var(--border-color);
+}
+
+.team-code-info {
+    background: var(--bg-light);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    margin-top: 20px;
+}
+
+.team-code-info h4 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-code-info h4 i {
+    color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .portal-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .portal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 18px;
+    }
+
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-container {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-container {
+        flex-direction: column;
+    }
+
+    .login-card {
+        padding: 30px 20px;
+    }
+}
+
+/* Alert Messages */
+.alert {
+    padding: 15px 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease;
+}
+
+.alert.success {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #22543d;
+}
+
+.alert.error {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: #742a2a;
+}
+
+.alert.info {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    color: #2a4365;
+}
+
+.alert.warning {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    color: #744210;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Chart Container */
+.chart-container {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+.chart-container h3 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-container h3 i {
+    color: var(--primary-color);
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+
+
+
+
+
+/* ===== Forgot Password (Clean Theme Match) ===== */
+
+#forgotSection {
+    max-width: 400px;
+    margin: 20px auto;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Title */
+#forgotSection h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+/* Subtitle */
+#forgotSection p {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+/* Input fields */
+#forgotSection input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+/* Focus effect */
+#forgotSection input:focus {
+    border-color: #6c63ff;
+    outline: none;
+}
+
+/* Button */
+#forgotSection .login-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #6c63ff, #7c4dff);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Button hover */
+#forgotSection .login-btn:hover {
+    opacity: 0.9;
+}
+
+/* Login link */
+#forgotSection .register-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#forgotSection .register-link a {
+    color: #6c63ff;
+    text-decoration: none;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.popup-box {
+    display: none;
+    /* 🔥 THIS LINE FIXES YOUR PROBLEM */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.popup-box {
+    backdrop-filter: blur(10px);
+}
+
+
+.popup-box {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.settings-dropdown p {
+    cursor: pointer;
+    /* 👈 HAND CURSOR */
+    padding: 10px;
+    transition: 0.2s;
+}
+
+.settings-dropdown p:hover {
+    background: #f1f1f1;
+    /* 👈 HOVER COLOR */
+    color: #4f46e5;
+    /* 👈 TEXT COLOR CHANGE */
+    border-radius: 6px;
+}
+
+
+.settings-dropdown p {
+    cursor: pointer;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.settings-dropdown p:hover {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.close-btn {
+    margin-top: 10px;
+    background: #e5e7eb;
+    /* light gray */
+    color: #333;
+}
+
+.close-btn:hover {
+    background: #d1d5db;
+}
+
+
+
+
+Change the entire UI and theme of my project. Do not use the current theme — create a completely new modern and advanced design with good color combinations (dark, light, and vibrant).
+
+Redesign all pages to be consistent, clean, and user-friendly. Improve layout, spacing, typography, buttons, cards, and navigation.
+
+Ensure all pages are properly connected with correct navigation and smooth flow. Fix any broken links.
+
+IMPORTANT:
+Do not affect backend functionality. Keep all backend integrations unchanged. Only modify frontend (HTML, CSS, UI). Avoid JavaScript changes that impact backend.
+
+Make it responsive, modern, and production-level.

@@ -1,0 +1,2051 @@
+
+<html >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Hackathon Competition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        /* Modern Dashboard Styles */
+        .dashboard-wrapper {
+            display: flex;
+
+                    min-height: 100vh;
+            background: var(--bg-secondary);
+            flex-direction: column;
+          
+        }
+        
+        .modern-header {
+            background: linear-gradient(135deg, #0c64d0 0%, #0b57db 100%);
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+            gap: 1rem;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+        
+        .logo-section h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 350px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 0.85rem;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Quick Action Buttons Advanced Styling */
+        .quick-action-btn {
+            transition: all 0.3s ease !important;
+        }
+
+        .quick-action-btn:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15) !important;
+        }
+
+        .quick-action-btn:active {
+            transform: translateY(-2px) !important;
+        }
+    </style>
+
+    <script>
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</head>
+
+<body class="dashboard-page student-dashboard">
+    <div class="dashboard-wrapper">
+        <!-- Modern Header -->
+        <div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+            <div class="modern-header">
+                <div class="header-top">
+                    <div class="logo-section">
+                        <button class="menu-toggle" onclick="toggleSidebar()" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <h1><i class="fas fa-rocket"></i> HackHub</h1>
+                    </div>
+                    
+                   
+                    
+                    <div class="header-actions">
+                        <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        
+                        <div class="notification-menu" style="position: relative;">
+                            <button class="icon-btn" id="bellIcon" title="Notifications">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                            
+                            <div class="notification-dropdown" id="notificationDropdown">
+                                <div style="padding: 1rem; border-bottom: 1px solid var(--border-light);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <h4 style="margin: 0;">Notifications</h4>
+                                        <button class="mark-read" style="background: none; border: none; color: var(--primary-color); cursor: pointer; font-size: 0.85rem;">Mark all read</button>
+                                    </div>
+                                </div>
+                                <div class="notifications-list" style="max-height: 320px; overflow-y: auto;">
+                                    <!-- Notifications will be loaded here by JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="top-right-profile" id="profileMenu">
+                            <button class="icon-btn" onclick="toggleProfileDropdown()" title="Profile">
+                                <i class="fas fa-user-circle"></i>
+                            </button>
+                            <div class="profile-dropdown">
+                                <h4><i class="fas fa-user"></i> Profile Info</h4>
+                                <p>Name: <span id="hdrNameDisplay">Loading...</span></p>
+                                <p>Student ID: <span id="hdrIdDisplay">...</span></p>
+                                <p>College: <span id="hdrCollegeDisplay">...</span></p>
+                                <p>Role: <span>Student</span></p>
+                            </div>
+                        </div>
+
+                        <div class="settings-menu" id="settingsMenu">
+                            <button class="icon-btn" onclick="toggleSettingsDropdown()" title="Settings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="settings-dropdown">
+                                <p onclick="openProfile()"><i class="fas fa-user"></i> Profile</p>
+                                <p onclick="openHelp()"><i class="fas fa-question-circle"></i> Help Center</p>
+                                <p onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="dashboard-container" style="margin-top: 90px; margin-left: 80px; display: flex; width: calc(100% - 80px); flex-direction: column; transition: margin-left 0.3s ease, width 0.3s ease;">
+
+
+        <!-- Sidebar -->
+        <nav class="sidebar" id="mainSidebar">
+            <button class="sidebar-close-arrow" onclick="closeSidebar()" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="sidebar-user-header">
+                <div class="sidebar-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 id="sidebarName">Student</h3>
+                <p>ID: <span id="sidebarId">...</span></p>
+                <p>College: <span id="sidebarCollege">...</span></p>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('dashboard-summary', event); closeSidebar();" class="nav-link active">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('available-hackathons'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-rocket"></i> <span>Hackathons</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('my-team', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-users"></i> <span>My Team</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('problem-statements', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-code"></i> <span>Problems</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('submit-project', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-paper-plane"></i> <span>Submit</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('announcements', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-bullhorn"></i> <span>Announcements</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('leaderboard', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-chart-line"></i> <span>Leaderboard</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('my-submissions', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-history"></i> <span>Submissions</span>
+                    </a></li>
+                
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" style="flex: 1; overflow-y: auto; padding: 2rem;">
+
+            <!-- Dashboard Summary Section -->
+            <section id="dashboard-summary" class="content-section active">
+                <!-- Welcome Hero Section -->
+                    <h2 style="margin: 0 0 0.5rem 0; font-size: 2rem;"></br>Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
+                    <p style="margin: 0; opacity: 0.95;">Ready to showcase your coding skills? Explore hackathons and submit amazing projects.</p>
+            </br></br>
+
+                <!-- Stats Grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: var(--bg-primary); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--primary-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">Participated</p>
+                                <h3 id="statParticipated" style="margin: 0.5rem 0 0 0; font-size: 2rem; color: var(--primary-color);">0</h3>
+                                <span style="font-size: 0.85rem; color: var(--success-color);"><i class="fas fa-arrow-up"></i> Active</span>
+                            </div>
+                            <div style="font-size: 2.5rem; color: var(--primary-color); opacity: 0.2;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-primary); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--success-color); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">Completed</p>
+                                <h3 id="statCompleted" style="margin: 0.5rem 0 0 0; font-size: 2rem; color: var(--success-color);">0</h3>
+                                <span style="font-size: 0.85rem; color: var(--success-color);"><i class="fas fa-check"></i> Success</span>
+                            </div>
+                            <div style="font-size: 2.5rem; color: var(--success-color); opacity: 0.2;">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-primary); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #fbbf24; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">Won</p>
+                                <h3 id="statWon" style="margin: 0.5rem 0 0 0; font-size: 2rem; color: #fbbf24;">0</h3>
+                                <span style="font-size: 0.85rem; color: #fbbf24;"><i class="fas fa-star"></i> Achievements</span>
+                            </div>
+                            <div style="font-size: 2.5rem; color: #fbbf24; opacity: 0.2;">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-primary); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #ef4444; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">Learning</p>
+                                <h3 id="statLost" style="margin: 0.5rem 0 0 0; font-size: 2rem; color: #ef4444;">0</h3>
+                                <span style="font-size: 0.85rem; color: #ef4444;"><i class="fas fa-book"></i> Opportunities</span>
+                            </div>
+                            <div style="font-size: 2.5rem; color: #ef4444; opacity: 0.2;">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid: Content + Sidebar -->
+                <div style="display: grid; grid-template-columns: 1fr 320px; gap: 2rem; width: 100%;">
+                    <!-- Left: Performance Chart & Quick Actions -->
+                    <div>
+                        <!-- Performance Chart -->
+                        <div style="background: var(--bg-primary); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <h3 style="margin: 0 0 1rem 0; font-size: 1.3rem;">Performance Analytics</h3>
+                            <p style="margin: 0 0 1.5rem 0; color: var(--text-secondary); font-size: 0.9rem;">Your team performance over time</p>
+                            <canvas id="performanceChart" height="70"></canvas>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div style="background: var(--bg-primary); border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <h3 style="margin: 0 0 1.5rem 0; font-size: 1.3rem;">Quick Actions</h3>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                                <button class="quick-action-btn" onclick="showSection('available-hackathons')" style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F7FF 100%); border: 1px solid #cad6e0; border-radius: 16px; padding: 2rem 1.5rem; color: #084fb2; cursor: pointer; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08); position: relative;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #063dd4 0%, #0857b2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                    <span style="font-weight: 600;">Explore</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="showSection('my-team')" style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F7FF 100%); border: 1px solid #cad6e0; border-radius: 16px; padding: 2rem 1.5rem; color: #084fb2; cursor: pointer; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08); position: relative;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #063dd4 0%, #0857b2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <span style="font-weight: 600;">Team</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="showSection('problem-statements')" style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F7FF 100%); border: 1px solid #cad6e0; border-radius: 16px; padding: 2rem 1.5rem; color: #084fb2; cursor: pointer; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08); position: relative;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg,#063dd4 0%, #0857b2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <span style="font-weight: 600;">Problems</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="showSection('submit-project')" style="background: linear-gradient(135deg, #F0F9FF 0%, #E0F7FF 100%); border: 1px solid #cad6e0; border-radius: 16px; padding: 2rem 1.5rem; color:#084fb2; cursor: pointer; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08); position: relative;">
+                                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #063dd4 0%, #0857b2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </div>
+                                    <span style="font-weight: 600;">Submit</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Sidebar -->
+                    <div>
+                        <!-- Profile Card -->
+                        <div style="background: var(--bg-primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <h4 style="margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-user-circle" style="color: var(--primary-color);"></i> Profile
+                            </h4>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div>
+                                    <p id="profileNameDisplay" style="margin: 0; font-weight: 600;">Loading...</p>
+                                    <p id="profileIdDisplay" style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">ID: ...</p>
+                                </div>
+                            </div>
+                            <p id="profileCollegeDisplay" style="margin: 0.5rem 0; font-size: 0.9rem; color: var(--text-secondary);"><i class="fas fa-building"></i> College: ...</p>
+                        </div>
+
+                        <!-- Team Info Card -->
+                        <div style="background: var(--bg-primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <h4 style="margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-users" style="color: var(--success-color);"></i> Team Info
+                            </h4>
+                            <div id="teamSummaryMembersList" style="font-size: 0.9rem; color: var(--text-secondary);">
+                                No team members yet
+                            </div>
+                        </div>
+
+                        <!-- Help Center -->
+                        <div style="background: linear-gradient(135deg, #0651d4 0%, #0857b2 100%); border-radius: 12px; padding: 1.5rem; color: white; box-shadow: 0 2px 8px rgba(6, 182, 212, 0.15);">
+                            <h4 style="margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-life-ring"></i> Support
+                            </h4>
+                            <p style="margin: 0 0 0.75rem 0; font-size: 0.9rem; opacity: 0.95;">Need help?</p>
+                            <button onclick="openHelp()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s;">
+                                <i class="fas fa-question-circle"></i> Help Center
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Announcements & Recent Activity -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <!-- Announcements -->
+                    <div style="background: var(--bg-primary); border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <h3 style="margin: 0 0 1.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-bullhorn" style="color: var(--primary-color);"></i> Latest Announcements
+                        </h3>
+                        <div id="sideAnnouncementsBox">
+                            <div style="text-align:center; color: var(--text-secondary); padding: 2rem;">
+                                <i class="fas fa-inbox" style="font-size: 2rem; opacity: 0.5;"></i>
+                                <p style="margin: 0.5rem 0 0 0;">No announcements yet</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div style="background: var(--bg-primary); border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <h3 style="margin: 0 0 1.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-history" style="color: var(--primary-color);"></i> Recent Activity
+                        </h3>
+                        <div id="recentActivity" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Activity items will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Hackathons Section -->
+            <section id="available-hackathons" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-trophy"></i> Explore Hackathons</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Discover and participate in exciting hackathons. Join teams, solve
+                        challenges, and showcase your skills.</p>
+                </div>
+
+                <div id="hackathonsList" class="teams-grid"></div>
+            </section>
+
+            <!-- My Team Section with Chat Box -->
+            <section id="my-team" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-users"></i> Team Management</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Manage your team members, communicate in real-time, and collaborate
+                        effectively on hackathon projects.</p>
+                </div>
+
+                <!-- Two Column Layout: Team Info + Chat Box -->
+                <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                    <!-- Left Column: Team Details & Members -->
+                    <div style="flex: 1.2; min-width: 280px;">
+                        <div class="my-team" id="currentTeamInfo">
+                            <h3 class="card-title"><i class="fas fa-users-cog"></i> Current Team</h3>
+                            <div id="teamDetails"></div>
+                            <!-- Team Members Box -->
+                            <div id="teamMembersBox" style="margin-top: 28px;">
+                                <h4
+                                    style="font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 14px; color: var(--text-primary);">
+                                    <i class="fas fa-user-friends"
+                                        style="color: var(--primary-color); margin-right: 10px;"></i> Team Members
+                                </h4>
+                                <div id="teamMembersListSection" style="font-size: 14px; color: var(--text-secondary);">Loading
+                                    members...</div>
+                            </div>
+                        </div>
+                        <div class="create-team" id="createTeamForm">
+                            <h3 class="card-title"><i class="fas fa-plus-circle"></i> Create New Team</h3>
+                            <p class="card-description">Form a new team and invite other students to join</p>
+                            <form onsubmit="createTeam(event)" style="margin-top: 20px;">
+                                <div class="form-group">
+                                    <label><i class="fas fa-tag"></i> Team Name</label>
+                                    <input type="text" id="newTeamName" placeholder="Enter a unique team name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-align-left"></i> Team Description</label>
+                                    <textarea id="teamDescription" rows="3"
+                                        placeholder="Describe your team's focus and goals..."></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">
+                                    <i class="fas fa-plus"></i> Create Team
+                                </button>
+                            </form>
+                            <div class="team-code-info">
+                                <h4
+                                    style="font-family: 'Poppins', sans-serif; font-weight: 700; margin-bottom: 14px; color: var(--text-primary);">
+                                    <i class="fas fa-key"></i> Join Existing Team
+                                </h4>
+                                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;">Use a
+                                    team code to join an existing team</p>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <input type="text" id="joinTeamCode"
+                                        placeholder="Enter team code (e.g., ABC123XYZ)">
+                                    <button type="button" onclick="joinTeam()" class="submit-btn"
+                                        style="margin-top: 10px; width: 100%;">
+                                        <i class="fas fa-sign-in-alt"></i> Join Team
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Team Chat Box -->
+                    <div style="flex: 1; min-width: 320px;">
+                        <div class="chat-container">
+                            <div class="chat-header">
+                                <i class="fas fa-comments"></i>
+                                <span>Team Communication</span>
+                                <i class="fas fa-circle" style="font-size: 8px; margin-left: auto;"></i>
+                            </div>
+                            <div class="chat-messages" id="chatMessages">
+                                <div class="message received">
+                                    <div class="message-bubble">Hey team! Ready for the hackathon? 🚀</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                                <div class="message sent">
+                                    <div class="message-bubble">Absolutely! Let's crush it 💪</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                            </div>
+                            <div class="chat-input-area">
+                                <input type="text" id="chatInput" placeholder="Type a message..." class="chat-input">
+                                <button id="sendChatBtn" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <section id="problem-statements" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-tasks"></i> Problem Statements</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Review and select problems to solve. Understand requirements and earn
+                        points for successful implementations.</p>
+                </div>
+
+                <div id="problemsList" class="problems-list"></div>
+            </section>
+
+            <section id="submit-project" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-upload"></i> Submit Your Project</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Showcase your hackathon project. Provide details, links, and a demo
+                        video for judges to evaluate.</p>
+                </div>
+
+                <div
+                    style="background: var(--bg-primary); border-radius: var(--radius-lg); padding: 32px; border: 1.5px solid var(--border-color); box-shadow: var(--shadow-md);">
+                    <form class="hackathon-form" onsubmit="submitProject(event)">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> Select Hackathon</label>
+                            <select id="projectHackathon" required>
+                                <option value="">Choose hackathon...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Project Title</label>
+                            <input type="text" id="projectName" placeholder="Give your project a compelling name"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-align-left"></i> Project Description</label>
+                            <textarea id="projectDescription" rows="5"
+                                placeholder="Explain what your project does and how it solves the problem..."
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fab fa-github"></i> GitHub Repository Link</label>
+                            <input type="url" id="githubRepo" placeholder="https://github.com/username/project"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-code"></i> Technology Domain</label>
+                            <select id="projectDomain" required>
+                                <option value="">Select Domain</option>
+                                <option value="AI">Artificial Intelligence & ML</option>
+                                <option value="Web">Web Development</option>
+                                <option value="Mobile">Mobile Application</option>
+                                <option value="IoT">Internet of Things</option>
+                                <option value="Blockchain">Blockchain & Web3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-video"></i> Demo Video Link (Optional)</label>
+                            <input type="url" id="demoLink" placeholder="https://youtube.com/watch?v=...">
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Submit Project
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="announcements" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-bullhorn"></i> Latest Announcements</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Stay updated with important announcements from organizers and judges.
+                    </p>
+                </div>
+
+                <div id="studentAnnouncements" class="announcements-list"></div>
+            </section>
+
+            <section id="leaderboard" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-chart-line"></i> Global Leaderboard</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">See where your team ranks among all participating teams. Higher scores
+                        indicate better performance.</p>
+                </div>
+
+                <div class="leaderboard-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-crown"></i> Rank</th>
+                                <th><i class="fas fa-users"></i> Team Name</th>
+                                <th><i class="fas fa-school"></i> College</th>
+                                <th><i class="fas fa-folder-open"></i> Project</th>
+                                <th><i class="fas fa-star"></i> Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentLeaderboardBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="my-submissions" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-history"></i> My Submissions</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">View the history of all your project submissions and feedback from
+                        judges.</p>
+                </div>
+
+                <div id="mySubmissionsList" class="teams-list"></div>
+            </section>
+        </main>
+        </div><!-- End dashboard-container -->
+    </div><!-- End dashboard-wrapper -->
+
+    <script>
+        let currentStudent = null;
+        let currentTeam = JSON.parse(localStorage.getItem("team"));
+        console.log("Loaded Team:", currentTeam);
+        let problemsData = [];
+        let perfChart = null;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+
+            const currentUser = localStorage.getItem('currentUser');
+            const userType = localStorage.getItem('userType');
+
+            if (!currentUser || userType !== 'student') {
+                window.location.replace('index.html');
+                return;
+            }
+
+            currentStudent = JSON.parse(currentUser);
+            
+            // Set welcome name
+            document.getElementById('welcomeName').textContent = (currentStudent.name || 'Student').split(' ')[0];
+            
+            // ✅ ADD THIS
+            loadNotifications(); // first load
+            setInterval(loadNotifications, 5000);
+            //setInterval(loadMessages, 2000);
+
+            document.getElementById('hdrNameDisplay').textContent = currentStudent.name || 'Student';
+            document.getElementById('hdrIdDisplay').textContent = currentStudent.student_id || 'N/A';
+            document.getElementById('hdrCollegeDisplay').textContent = currentStudent.college_name || 'N/A';
+
+            const sbName = document.getElementById('sidebarName');
+            if (sbName) sbName.textContent = currentStudent.name;
+            const sbId = document.getElementById('sidebarId');
+            if (sbId) sbId.textContent = currentStudent.student_id || 'N/A';
+            const sbCollege = document.getElementById('sidebarCollege');
+            if (sbCollege) sbCollege.textContent = currentStudent.college_name || 'N/A';
+
+            document.getElementById('profileNameInput').value = currentStudent.name || '';
+            document.getElementById('profileCollegeInput').value = currentStudent.college_name || '';
+            document.getElementById('profileDept').value = currentStudent.department || 'Computer Science';
+            document.getElementById('profileYear').value = currentStudent.year || '1';
+            document.getElementById('profileSkills').value = currentStudent.skills || '';
+            document.getElementById('profileGithub').value = currentStudent.github || '';
+
+            // Populate dashboard profile box display
+            const nameDisplay = document.getElementById('profileNameDisplay');
+            const idDisplay = document.getElementById('profileIdDisplay');
+            const collegeDisplay = document.getElementById('profileCollegeDisplay');
+            const skillsDisplay = document.getElementById('profileSkillsDisplay');
+            const githubDisplay = document.getElementById('profileGithubDisplay');
+            if (nameDisplay) nameDisplay.textContent = currentStudent.name || 'Student';
+            if (idDisplay) idDisplay.textContent = 'ID: ' + (currentStudent.student_id || 'N/A');
+            if (collegeDisplay) collegeDisplay.textContent = 'College: ' + (currentStudent.college_name || 'N/A');
+            if (skillsDisplay) skillsDisplay.textContent = 'Skills: ' + (currentStudent.skills || 'None');
+            if (githubDisplay) githubDisplay.innerHTML = currentStudent.github ? `GitHub: <a href="${currentStudent.github}" target="_blank">${currentStudent.github}</a>` : 'GitHub: N/A';
+
+            loadStudentProfile();
+            loadAvailableHackathons();
+            loadAnnouncements();
+            loadLeaderboard();
+            checkUserTeam();
+            loadEvents();
+            loadRecentActivity();
+
+
+            showSection('dashboard-summary');
+
+
+            // 🔥 Prevent access after refresh
+            window.onload = function () {
+                const currentUser = localStorage.getItem('currentUser');
+
+                if (!currentUser) {
+                    window.location.replace("home.html");
+                }
+            };
+
+
+            // CHAT SETUP (CORRECT)
+            const sendBtn = document.getElementById('sendChatBtn');
+            const input = document.getElementById('chatInput');
+            window.chatBox = document.getElementById('chatMessages');
+
+            sendBtn.addEventListener('click', async function () {
+
+                let msg = input.value.trim();
+
+                if (msg === "") {
+                    alert("Type message first");
+                    return;
+                }
+
+                if (!currentTeam) {
+                    alert("Create or join team first");
+                    return;
+                }
+
+                let user = JSON.parse(localStorage.getItem("currentUser"));
+
+                let formData = new FormData();
+                formData.append("team_id", currentTeam.id);
+                formData.append("email", user.email);
+                formData.append("message", msg);
+
+                try {
+                    await fetch("send_message.php", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    input.value = "";
+                    loadMessages();
+
+                } catch (error) {
+                    console.error("Send error:", error);
+                }
+            });
+
+            // ENTER KEY SUPPORT
+            input.addEventListener("keypress", function (e) {
+                if (e.key === "Enter") {
+                    sendBtn.click();
+                }
+            });
+
+        });
+        // ================= CHAT SEND FIX =================
+
+
+        // 🔥 Step 3: Disable back button
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
+
+        // 🔥 Step 5B: Prevent going back to dashboard
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            window.location.href = "home.html";
+        };
+
+
+
+
+        function closeSidebar() {
+            const sidebar = document.getElementById("mainSidebar");
+            const container = document.querySelector('.dashboard-container');
+            sidebar.classList.remove("active");
+            container.style.marginLeft = '80px';
+            container.style.width = 'calc(100% - 80px)';
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mainSidebar');
+            const container = document.querySelector('.dashboard-container');
+            sidebar.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                container.style.marginLeft = '260px';
+                container.style.width = 'calc(100% - 260px)';
+            } else {
+                container.style.marginLeft = '80px';
+                container.style.width = 'calc(100% - 80px)';
+            }
+        }
+
+        function toggleSettingsDropdown() {
+            document.getElementById('settingsMenu').classList.toggle('active');
+            document.getElementById('profileMenu').classList.remove('active');
+        }
+
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('open');
+                if (dropdown.classList.contains('open')) {
+                    loadNotifications();
+                }
+            }
+        }
+
+        function toggleProfileDropdown() {
+            document.getElementById('profileMenu').classList.toggle('active');
+            document.getElementById('settingsMenu').classList.remove('active');
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.closest('.settings-menu') && !event.target.closest('.top-right-profile') && !event.target.closest('.popup-box')) {
+                document.getElementById('settingsMenu').classList.remove('active');
+                document.getElementById('profileMenu').classList.remove('active');
+                closeAll();
+            }
+        }
+
+        function showSection(sectionId, e) {
+            history.pushState({ section: sectionId }, "", "#" + sectionId);
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+
+            if (e) {
+                e.target.classList.add('active');
+            }
+
+            switch (sectionId) {
+                case 'dashboard-summary':
+                    loadDashboardSummary();
+                    loadRecentActivity();
+                    break;
+                case 'available-hackathons':
+                    loadAvailableHackathons();
+                    break;
+                case 'problem-statements':
+                    loadProblemStatements();
+                    break;
+                case 'submit-project':
+                    loadHackathonsForSubmission();
+                    break;
+                case 'my-submissions':
+                    loadMySubmissions();
+                    break;
+            }
+        }
+
+        function loadStudentProfile() {
+            document.getElementById('profileDept').value = currentStudent.department || 'Computer Science';
+            document.getElementById('profileYear').value = currentStudent.year || '1';
+            document.getElementById('profileSkills').value = currentStudent.skills || '';
+            document.getElementById('profileGithub').value = currentStudent.github || '';
+        }
+
+        async function loadDashboardSummary() {
+            if (!currentTeam || !currentTeam.id) {
+                console.log("Team not loaded yet:", currentTeam);
+                return;
+            }
+
+            try {
+                let response = await fetch("get_dashboard_stats.php?team_id=" + currentTeam.id);
+                let data = await response.json();
+
+                let participated = data.participated || 0;
+                let completed = data.completed || 0;
+                let won = data.won || 0;
+                let lost = data.lost || 0;
+                let pending = data.pending || 0;
+                let late_submission = data.late_submission || 0;
+
+                // Update performance stats
+                document.getElementById('statParticipated').textContent = participated;
+                document.getElementById('statCompleted').textContent = completed;
+                document.getElementById('statWon').textContent = won;
+                document.getElementById('statLost').textContent = lost;
+
+                // Update welcome stats if the section exists
+                const welcomeParticipated = document.getElementById('welcomeParticipated');
+                const welcomeTeams = document.getElementById('welcomeTeams');
+                const welcomeSubmissions = document.getElementById('welcomeSubmissions');
+                if (welcomeParticipated) welcomeParticipated.textContent = participated;
+                if (welcomeTeams) welcomeTeams.textContent = currentTeam ? 1 : 0;
+                if (welcomeSubmissions) welcomeSubmissions.textContent = completed;
+
+                // Update profile info
+                const profileNameDisplay = document.getElementById('profileNameDisplay');
+                const profileIdDisplay = document.getElementById('profileIdDisplay');
+                const profileCollegeDisplay = document.getElementById('profileCollegeDisplay');
+                const profileSkillsDisplay = document.getElementById('profileSkillsDisplay');
+                const profileGithubDisplay = document.getElementById('profileGithubDisplay');
+                if (profileNameDisplay) profileNameDisplay.textContent = currentStudent.name || 'Student';
+                if (profileIdDisplay) profileIdDisplay.textContent = 'ID: ' + (currentStudent.student_id || 'N/A');
+                if (profileCollegeDisplay) profileCollegeDisplay.textContent = 'College: ' + (currentStudent.college_name || 'N/A');
+                if (profileSkillsDisplay) profileSkillsDisplay.textContent = 'Skills: ' + (currentStudent.skills || 'None');
+                if (profileGithubDisplay) profileGithubDisplay.innerHTML = currentStudent.github ? `GitHub: <a href="${currentStudent.github}" target="_blank">${currentStudent.github}</a>` : 'GitHub: N/A';
+
+                // Update team status if available
+                const teamStatus = document.getElementById('teamStatus');
+                if (teamStatus) {
+                    if (currentTeam && currentTeam.name) {
+                        teamStatus.innerHTML = '<i class="fas fa-users"></i> ' + currentTeam.name;
+                        teamStatus.style.color = 'var(--success-color)';
+                    } else {
+                        teamStatus.innerHTML = '<i class="fas fa-users"></i> No Team Yet';
+                        teamStatus.style.color = 'var(--text-secondary)';
+                    }
+                }
+
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+
+                if (perfChart) {
+                    perfChart.destroy();
+                }
+
+                perfChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Participated', 'Completed', 'Won', 'Lost', 'Pending', 'Late Submission'],
+                        datasets: [{
+                            label: 'Hackathon Stats',
+                            data: [participated, completed, won, lost, pending, late_submission],
+                            backgroundColor: [
+                                'rgba(99, 102, 241, 0.8)',   // Participated - Blue
+                                'rgba(16, 185, 129, 0.8)',   // Completed - Green
+                                'rgba(251, 146, 60, 0.8)',   // Won - Orange
+                                'rgba(239, 68, 68, 0.8)',    // Lost - Red
+                                'rgba(156, 163, 175, 0.8)',  // Pending - Gray
+                                'rgba(245, 101, 101, 0.8)'   // Late Submission - Light Red
+                            ],
+                            borderColor: [
+                                '#6366f1',  // Participated
+                                '#10b981',  // Completed
+                                '#fb923c',  // Won
+                                '#ef4444',  // Lost
+                                '#9ca3af',  // Pending
+                                '#f56565'   // Late Submission
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'bottom',
+                                labels: {
+                                    font: { size: 13, weight: '600' },
+                                    padding: 20,
+                                    color: document.body.classList.contains('dark-mode') ? '#cbd5e1' : '#475569'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1,
+                                    color: document.body.classList.contains('dark-mode') ? '#cbd5e1' : '#475569',
+                                    font: { size: 12 }
+                                },
+                                grid: {
+                                    color: document.body.classList.contains('dark-mode') ? '#3a4556' : '#e2e8f0'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: document.body.classList.contains('dark-mode') ? '#cbd5e1' : '#475569',
+                                    font: { size: 12 }
+                                },
+                                grid: {
+                                    color: document.body.classList.contains('dark-mode') ? '#3a4556' : '#e2e8f0'
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Dashboard loading error:", error);
+            }
+        }
+
+        function loadRecentActivity() {
+            const activityList = document.getElementById('recentActivity');
+            let activities = [];
+
+            // Check if user has a team
+            if (currentTeam) {
+                activities.push({
+                    icon: 'fas fa-users',
+                    text: `Joined team "${currentTeam.team_name}"`
+                });
+            } else {
+                activities.push({
+                    icon: 'fas fa-users',
+                    text: 'Looking to join or create a team'
+                });
+            }
+
+            // Add some default activities
+            activities.push({
+                icon: 'fas fa-trophy',
+                text: 'Explore available hackathons'
+            });
+
+            activities.push({
+                icon: 'fas fa-code',
+                text: 'Check problem statements'
+            });
+
+            activities.push({
+                icon: 'fas fa-paper-plane',
+                text: 'Ready to submit projects'
+            });
+
+            // Generate HTML
+            activityList.innerHTML = activities.map(activity => `
+                <div class="activity-item">
+                    <i class="${activity.icon}"></i>
+                    <span>${activity.text}</span>
+                </div>
+            `).join('');
+        }
+
+        async function saveProfileChanges() {
+            const department = document.getElementById('profileDept').value;
+            const year = document.getElementById('profileYear').value;
+            const skills = document.getElementById('profileSkills').value.trim();
+            const github = document.getElementById('profileGithub').value.trim();
+
+            const data = JSON.parse(localStorage.getItem('hackathonData')) || {
+                students: [],
+                teams: [],
+                registrations: [],
+                submissions: [],
+                announcements: []
+            };
+
+            data.students = data.students || [];
+            const studentIndex = data.students.findIndex(s => s.id === currentStudent.id);
+            if (studentIndex !== -1) {
+                data.students[studentIndex] = {
+                    ...data.students[studentIndex],
+                    department,
+                    year,
+                    skills,
+                    github
+                };
+
+                localStorage.setItem('hackathonData', JSON.stringify(data));
+                currentStudent = data.students[studentIndex];
+                localStorage.setItem('currentUser', JSON.stringify(currentStudent));
+
+                const nameDisplay = document.getElementById('profileNameDisplay');
+                const idDisplay = document.getElementById('profileIdDisplay');
+                const collegeDisplay = document.getElementById('profileCollegeDisplay');
+                const skillsDisplay = document.getElementById('profileSkillsDisplay');
+                const githubDisplay = document.getElementById('profileGithubDisplay');
+                if (nameDisplay) nameDisplay.textContent = currentStudent.name || 'Student';
+                if (idDisplay) idDisplay.textContent = 'ID: ' + (currentStudent.student_id || 'N/A');
+                if (collegeDisplay) collegeDisplay.textContent = 'College: ' + (currentStudent.college_name || 'N/A');
+                if (skillsDisplay) skillsDisplay.textContent = 'Skills: ' + (currentStudent.skills || 'None');
+                if (githubDisplay) githubDisplay.innerHTML = currentStudent.github ? `GitHub: <a href="${currentStudent.github}" target="_blank">${currentStudent.github}</a>` : 'GitHub: N/A';
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('email', currentStudent.email);
+                formData.append('department', department);
+                formData.append('year', year);
+                formData.append('skills', skills);
+                formData.append('github', github);
+
+                const response = await fetch('update_profile.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = (await response.text()).trim();
+                if (result !== 'success') {
+                    console.error('Profile save backend error:', result);
+                    alert('Profile updated locally, but server save failed.');
+                }
+            } catch (error) {
+                console.error('Profile save error:', error);
+                alert('There was a problem saving your profile to the server.');
+            }
+        }
+
+        async function updateProfile(event) {
+            event.preventDefault();
+            await saveProfileChanges();
+            alert('Profile updated successfully!');
+        }
+
+        async function fetchRegisteredHackathons(teamId) {
+            if (!teamId) return [];
+            try {
+                let response = await fetch(`get_team_registrations.php?team_id=${teamId}`);
+                let data = await response.json();
+                if (Array.isArray(data)) {
+                    return data.map(id => parseInt(id, 10));
+                }
+            } catch (error) {
+                console.error("Error fetching registered hackathons:", error);
+            }
+            return [];
+        }
+
+        async function loadAvailableHackathons() {
+            let response = await fetch("get_hackathons.php");
+            let hackathons = await response.json();
+
+            const registeredHackathons = currentTeam && currentTeam.id ? await fetchRegisteredHackathons(currentTeam.id) : [];
+
+            let container = document.getElementById("hackathonsList");
+            container.innerHTML = "";
+
+            hackathons.forEach(h => {
+                const isRegistered = registeredHackathons.includes(Number(h.id));
+                const buttonHtml = isRegistered
+                    ? `<button class="submit-btn registered" disabled><i class="fas fa-check"></i> Registered</button>`
+                    : `<button class="submit-btn" onclick="registerHackathon(${h.id}, '${h.name}', ${h.team_size})"><i class="fas fa-sign-in-alt"></i> Register</button>`;
+
+                container.innerHTML += `
+                    <div class="team-card">
+                        <h3><i class="fas fa-rocket"></i> ${h.name}</h3>
+                        <p><strong>Theme:</strong> ${h.theme}</p>
+                        <p><strong>Team Size:</strong> ${h.team_size}</p>
+                        <p style="color:green; font-weight:bold;">
+                            Prize Pool: ${h.prize_pool}
+                        </p>
+                        <p><strong>Registration Deadline:</strong> ${h.registration_deadline}</p>
+                        ${buttonHtml}
+                    </div>
+                `;
+            });
+        }
+
+        async function registerHackathon(id, name, teamSize) {
+            if (!currentTeam || !currentTeam.id) {
+                alert("Please create or join a team first!");
+                showSection('my-team');
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("team_id", currentTeam.id);
+            formData.append("hackathon_id", id);
+
+            let response = await fetch("register_hackathon.php", {
+                method: "POST",
+                body: formData
+            });
+
+            let result = await response.text();
+            result = result.trim();
+
+            if (result === "success") {
+                alert("Registered Successfully for " + name);
+                loadDashboardSummary();
+                loadAvailableHackathons();
+            }
+            else if (result === "already_registered") {
+                alert("You already registered for this hackathon");
+                loadAvailableHackathons();
+            }
+            else {
+                alert("Registration failed");
+            }
+        }
+
+        async function checkUserTeam() {
+            let student = JSON.parse(localStorage.getItem("currentUser"));
+            let response = await fetch("get_team.php?email=" + student.email);
+            let result = await response.text();
+
+            if (result !== "none") {
+                currentTeam = JSON.parse(result);
+                localStorage.setItem("team", JSON.stringify(currentTeam));
+                loadDashboardSummary();
+                loadRecentActivity();
+
+                // Update team status in dashboard
+                const teamStatus = document.getElementById('teamStatus');
+                if (teamStatus) {
+                    teamStatus.innerHTML = '<i class="fas fa-users"></i> ' + currentTeam.team_name;
+                    teamStatus.style.color = 'var(--success-color)';
+                }
+
+                document.getElementById("teamDetails").innerHTML = `
+                    <div class="team-card">
+                        <h3><i class="fas fa-users"></i> ${currentTeam.team_name}</h3>
+                        <p><strong>Team Code:</strong> ${currentTeam.id}</p>
+                        <p><strong>Leader:</strong> ${currentTeam.leader_email}</p>
+                    </div>
+                `;
+
+                // Load team members
+                await loadTeamMembers(currentTeam.id);
+
+                document.getElementById("createTeamForm").style.display = "none";
+                loadAvailableHackathons();
+            }
+            else {
+                // Update team status in dashboard
+                const teamStatus = document.getElementById('teamStatus');
+                if (teamStatus) {
+                    teamStatus.innerHTML = '<i class="fas fa-users"></i> No Team Yet';
+                    teamStatus.style.color = 'var(--text-secondary)';
+                }
+
+                document.getElementById("teamDetails").innerHTML =
+                    "<p>You are not part of any team yet.</p>";
+                document.getElementById("teamMembersBox").style.display = "none";
+            }
+
+            loadMessages();
+            setInterval(loadMessages, 2000);
+        }
+
+        async function loadTeamMembers(teamId) {
+            try {
+                let response = await fetch(`get_team_members.php?team_id=${teamId}`);
+                let members = await response.json();
+                const summaryMembersList = document.getElementById("teamSummaryMembersList");
+                const membersListSection = document.getElementById("teamMembersListSection");
+
+                const updateMembersHtml = (html) => {
+                    if (summaryMembersList) summaryMembersList.innerHTML = html;
+                    if (membersListSection) membersListSection.innerHTML = html;
+                };
+
+                if (members && members.length > 0) {
+                    // Sort members to show leader first
+                    members.sort((a, b) => {
+                        const aIsLeader = currentTeam && currentTeam.leader_email === a.email;
+                        const bIsLeader = currentTeam && currentTeam.leader_email === b.email;
+                        if (aIsLeader && !bIsLeader) return -1;
+                        if (!aIsLeader && bIsLeader) return 1;
+                        return 0;
+                    });
+
+                    let membersHtml = '<div style="margin-top: 10px;">';
+                    members.forEach((member, index) => {
+                        const isLeader = currentTeam && currentTeam.leader_email === member.email;
+                        const memberType = isLeader ? 'Leader' : 'Team Member';
+                        membersHtml += `
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <div>
+                                    <strong>${member.name}</strong> <span style="color: var(--text-muted); font-size: 12px;">(${memberType})</span>
+                                    <div style="font-size: 13px; color: var(--text-muted);">${member.email}</div>
+                                </div>
+                                <i class="fas fa-user-circle" style="font-size: 24px; color: var(--primary-color);"></i>
+                            </div>
+                        `;
+                    });
+                    membersHtml += '</div>';
+                    updateMembersHtml(membersHtml);
+                } else {
+                    updateMembersHtml('<p style="color: var(--text-muted);">No team members yet</p>');
+                }
+            } catch (error) {
+                console.error("Error loading team members:", error);
+                const summaryMembersList = document.getElementById("teamSummaryMembersList");
+                const membersListSection = document.getElementById("teamMembersListSection");
+                if (summaryMembersList) {
+                    summaryMembersList.innerHTML = '<p style="color: var(--danger-color);">Failed to load members.</p>';
+                }
+                if (membersListSection) {
+                    membersListSection.innerHTML = '<p style="color: var(--danger-color);">Failed to load members.</p>';
+                }
+            }
+        }
+
+        function updateTeamDisplay() {
+            const teamDetails = document.getElementById('teamDetails');
+            const createForm = document.getElementById('createTeamForm');
+
+            if (currentTeam) {
+                teamDetails.innerHTML = `
+                    <div class="team-card">
+                        <h3><i class="fas fa-users"></i> ${currentTeam.team_name}</h3>
+                        <p><strong>Team Code:</strong> ${currentTeam.id}</p>
+                        <p><strong>Leader:</strong> ${currentTeam.leader_email}</p>
+                        <p><strong>Status:</strong> Active</p>
+                    </div>
+                `;
+                createForm.style.display = 'none';
+            }
+            else {
+                teamDetails.innerHTML = "<p>You are not part of any team yet.</p>";
+                createForm.style.display = 'block';
+            }
+        }
+
+        function createTeam(event) {
+            event.preventDefault();
+
+            let teamName = document.getElementById("newTeamName").value;
+            let student = JSON.parse(localStorage.getItem("currentUser"));
+
+            let formData = new FormData();
+            formData.append("team_name", teamName);
+            formData.append("email", student.email);
+
+            fetch("create_team.php", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.text())
+                .then(async (result) => {
+
+                    console.log("CREATE TEAM RESPONSE:", result);
+
+                    if (result !== "none") {
+
+                        // 🔥 GET TEAM DATA FROM SERVER
+                        let res = await fetch("get_team.php?email=" + student.email);
+                        let teamData = await res.json();
+
+                        // 🔥 STORE TEAM IN LOCALSTORAGE
+                        localStorage.setItem("team", JSON.stringify(teamData));
+
+                        alert("✅ Team Created Successfully");
+                        location.reload();
+                    }
+                    else {
+                        alert("❌ Team creation failed");
+                    }
+                })
+                .catch(error => {
+                    console.error("Create Team Error:", error);
+                    alert("Server error");
+                });
+        }
+
+        async function joinTeam() {
+            let teamCode = document.getElementById("joinTeamCode").value.trim();
+
+            if (!teamCode) {
+                alert("Please enter team code");
+                return;
+            }
+
+            let student = JSON.parse(localStorage.getItem("currentUser"));
+
+            if (!student || !student.email) {
+                alert("User not logged in properly");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("team_id", teamCode);
+            formData.append("email", student.email);
+
+            try {
+                let response = await fetch("join_team.php", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let result = await response.text();
+                result = result.trim();
+
+                console.log("JOIN TEAM RESPONSE:", result);
+
+                if (result === "success") {
+
+                    // 🔥 GET TEAM DATA AGAIN
+                    let res = await fetch("get_team.php?email=" + student.email);
+                    let teamData = await res.json();
+
+                    // 🔥 STORE TEAM
+                    localStorage.setItem("team", JSON.stringify(teamData));
+
+                    alert("✅ Joined team successfully");
+                    location.reload();
+                }
+                else if (result === "already_joined") {
+                    alert("You are already in this team");
+                }
+                else if (result === "team_full") {
+                    alert("Team is full");
+                }
+                else if (result === "invalid_team") {
+                    alert("Invalid team code");
+                }
+                else {
+                    alert("Error: " + result);
+                }
+
+            } catch (error) {
+                console.error("Join Team Error:", error);
+                alert("❌ Network error");
+            }
+        }
+
+        async function loadProblemStatements() {
+            let response = await fetch("get_problems.php");
+            let problems = await response.json();
+            problemsData = problems;
+
+            let container = document.getElementById("problemsList");
+            container.innerHTML = "";
+
+            if (!problems || problems.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:30px; color:gray;"><i class="fas fa-inbox" style="font-size:40px; margin-bottom:15px; display:block;"></i>No problems available yet</div>';
+                return;
+            }
+
+            let selectedProblem = null;
+            if (currentTeam && currentTeam.id) {
+                let selectedRes = await fetch("get_selected_problem.php?team_id=" + currentTeam.id);
+                let selectedData = await selectedRes.json();
+                selectedProblem = selectedData.selected_problem;
+            }
+
+            problems.forEach(problem => {
+                let isSelected = selectedProblem && problem.title === selectedProblem;
+
+                container.innerHTML += `
+            <div class="problem-card">
+                <h4><i class="fas fa-tasks"></i> ${problem.title}</h4>
+                <p><strong>Domain:</strong> ${problem.domain}</p>
+                <p>${problem.description}</p>
+                
+                <button 
+                    id="problemBtn_${problem.id}" 
+                    class="submit-btn" 
+                    onclick="selectProblem(${problem.id})"
+                    ${isSelected ? "disabled" : ""}
+                    style="${isSelected ? 'background:green;' : ''}"
+                >
+                    <i class="fas ${isSelected ? 'fa-check' : 'fa-plus'}"></i> 
+                    ${isSelected ? "Selected" : "Select Problem"}
+                </button>
+            </div>
+        `;
+            });
+        }
+        async function selectProblem(problemId) {
+
+            // ✅ CHECK TEAM FIRST
+            if (!currentTeam || !currentTeam.id) {
+                alert("⚠ Please create or join a team first");
+                return;
+            }
+
+            let problem = problemsData.find(p => p.id == problemId);
+
+            if (!problem) {
+                alert("Problem not found");
+                return;
+            }
+
+            if (!confirm("Do you want to select this problem?")) {
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("team_id", currentTeam.id);
+            formData.append("problem_title", problem.title);
+
+            try {
+                let response = await fetch("save_selected_problem.php", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let text = await response.text();
+                console.log("RAW RESPONSE:", text);
+
+                let result;
+
+                try {
+                    result = JSON.parse(text);
+                } catch (e) {
+                    throw new Error("Invalid JSON: " + text);
+                }
+
+                if (result.status === "success") {
+                    alert("✅ Problem Selected");
+                    loadProblemStatements();
+                } else {
+                    alert("❌ " + result.message);
+                }
+
+            } catch (error) {
+                console.error("ERROR:", error);
+                alert("Server connection error");
+            }
+        }
+        async function loadHackathonsForSubmission() {
+            let response = await fetch("get_hackathons.php");
+            let hackathons = await response.json();
+
+            let select = document.getElementById("projectHackathon");
+            select.innerHTML = '<option value="">Choose hackathon...</option>';
+
+            hackathons.forEach(h => {
+                select.innerHTML += `
+                    <option value="${h.id}">${h.name}</option>
+                `;
+            });
+        }
+
+        async function submitProject(event) {
+            event.preventDefault();
+
+            // ✅ CHECK TEAM
+            if (!currentTeam || !currentTeam.id) {
+                alert("⚠️ You must create or join a team first");
+                return;
+            }
+
+            // ✅ CHECK HACKATHON
+            let hackathonId = document.getElementById("projectHackathon").value;
+            if (!hackathonId) {
+                alert("⚠️ Please select a hackathon");
+                return;
+            }
+
+            // ✅ FORM DATA
+            let formData = new FormData();
+            formData.append("team_id", currentTeam.id);
+            formData.append("team_name", currentTeam.team_name);
+            formData.append("hackathon_id", hackathonId);
+            formData.append("project_name", document.getElementById("projectName").value);
+            formData.append("description", document.getElementById("projectDescription").value);
+            formData.append("github_repo", document.getElementById("githubRepo").value);
+            formData.append("domain", document.getElementById("projectDomain").value);
+            formData.append("demo_link", document.getElementById("demoLink").value);
+
+            try {
+                let response = await fetch("submit_project.php", {
+                    method: "POST",
+                    body: formData
+                });
+
+                // 🔥 CHANGE HERE (TEXT → JSON)
+                let result = await response.json();
+                console.log("RESPONSE:", result);
+
+                // ✅ HANDLE RESPONSE
+                if (result.status === "success") {
+                    alert("✅ Project Submitted Successfully");
+                    document.querySelector(".hackathon-form").reset();
+                    loadDashboardSummary();
+                }
+                else if (result.status === "already_submitted") {
+                    alert("⚠️ Your team already submitted a project");
+                }
+                else if (result.status === "not_registered") {
+                    alert("⚠️ Your team is NOT registered for this hackathon");
+                }
+                else {
+                    alert("❌ Error: " + result.status);
+                }
+
+            } catch (error) {
+                console.error("Submission Error:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        }
+
+        async function loadAnnouncements() {
+            let response = await fetch("get_announcements.php");
+            let announcements = await response.json();
+
+            let mainContainer = document.getElementById("studentAnnouncements");
+            let sideContainer = document.getElementById("sideAnnouncementsBox");
+
+            mainContainer.innerHTML = "";
+            sideContainer.innerHTML = "";
+
+            if (announcements.length === 0) {
+                sideContainer.innerHTML = `
+                    <div class="portal-side-item" style="text-align:center; color: var(--text-muted);">
+                        <i class="fas fa-info-circle"></i> No Announcements
+                    </div>
+                `;
+                mainContainer.innerHTML = "<p>No announcements yet.</p>";
+                return;
+            }
+
+            announcements.forEach(a => {
+                mainContainer.innerHTML += `
+                    <div class="announcement-card">
+                        <h4><i class="fas fa-bullhorn"></i> ${a.title}</h4>
+                        <p>${a.message}</p>
+                        <p><strong>Priority:</strong> ${a.priority}</p>
+                    </div>
+                `;
+
+                sideContainer.innerHTML += `
+                    <div class="portal-side-item">
+                        <h4 style="color: var(--primary-color);">${a.title}</h4>
+                        <p style="font-size:13px;">${a.message.substring(0, 60)}...</p>
+                    </div>
+                `;
+            });
+        }
+
+        async function loadLeaderboard() {
+            let response = await fetch("get_leaderboard.php");
+            let teams = await response.json();
+
+            let tbody = document.getElementById("studentLeaderboardBody");
+            tbody.innerHTML = "";
+
+            // ✅ NO SCORES YET
+            if (!teams || teams.length === 0) {
+                tbody.innerHTML = `
+            <tr>
+                <td colspan="5" style="text-align:center; padding:20px;">
+                    🚀 Results not announced yet
+                </td>
+            </tr>
+        `;
+                return;
+            }
+
+            // ✅ SHOW SCORES
+            teams.forEach((team, index) => {
+                tbody.innerHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${team.team_name}</td>
+                <td>${team.college_name || 'N/A'}</td>
+                <td>${team.project_name}</td>
+                <td>${team.score}</td>
+            </tr>
+        `;
+            });
+        }
+        async function loadMySubmissions() {
+
+            if (!currentTeam || !currentTeam.id) {
+                console.log("No team found");
+                return;
+            }
+
+            try {
+                let response = await fetch("get_my_submissions.php?team_id=" + currentTeam.id);
+                let submissions = await response.json();
+
+                let container = document.getElementById('mySubmissionsList');
+                container.innerHTML = '';
+
+                if (!submissions || submissions.length === 0) {
+                    container.innerHTML = '<p>No submissions yet.</p>';
+                    return;
+                }
+
+                submissions.forEach(sub => {
+                    container.innerHTML += `
+                <div class="team-card">
+                    <h4><i class="fas fa-code"></i> ${sub.project_name}</h4>
+                    <p><strong>Hackathon:</strong> ${sub.hackathon_name}</p>
+                    <p><strong>Domain:</strong> ${sub.domain}</p>
+                    <p><strong>Status:</strong> ${sub.status}</p>
+                    <p><strong>Score:</strong> ${sub.score}</p>
+                    <p><a href="${sub.github_repo}" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a></p>
+                </div>
+            `;
+                });
+
+            } catch (error) {
+                console.error("Load submissions error:", error);
+            }
+        }
+
+        async function loadEvents() {
+            let response = await fetch("get_events.php");
+            let events = await response.json();
+
+            let box = document.getElementById("eventsBox");
+            box.innerHTML = "";
+
+            if (events.length == 0) {
+                box.innerHTML = `
+                <div class="portal-side-item" style="text-align:center;color:var(--text-muted);">
+                <i class="fas fa-clock"></i> No Events Scheduled
+                </div>
+                `;
+                return;
+            }
+
+            events.forEach(e => {
+                box.innerHTML += `
+                <div class="portal-side-item">
+                <h4 style="color:var(--primary-color)">${e.title}</h4>
+                <p>${e.description}</p>
+                <small>${e.event_date}</small>
+                </div>
+                `;
+            });
+        }
+
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+
+            if (perfChart) {
+                loadDashboardSummary();
+                loadRecentActivity();
+            }
+        }
+
+        async function loadMessages() {
+            if (!currentTeam) return;
+
+            let res = await fetch(`get_messages.php?team_id=${currentTeam.id}`);
+            let data = await res.json();
+
+            if (!window.chatBox) return;
+
+            window.chatBox.innerHTML = "";
+
+            let user = JSON.parse(localStorage.getItem("currentUser"));
+
+            data.forEach(msg => {
+                let isMe = msg.sender_email === user.email;
+                let senderName = msg.sender_name || msg.sender_email.split('@')[0];
+                let timeStr = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                window.chatBox.innerHTML += `
+            <div class="message ${isMe ? 'sent' : 'received'}">
+                ${!isMe ? `<div class="sender-name">${senderName}</div>` : ''}
+                <div class="message-bubble">${msg.message}</div>
+                <div class="message-time">${timeStr}</div>
+            </div>
+        `;
+            });
+
+            window.chatBox.scrollTop = window.chatBox.scrollHeight;
+        }
+
+
+        // 🔔 OPEN / CLOSE DROPDOWN
+        const notificationButton = document.getElementById('bellIcon');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+
+        notificationButton?.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (!notificationDropdown) return;
+            notificationDropdown.classList.toggle('open');
+            if (notificationDropdown.classList.contains('open')) {
+                loadNotifications();
+            }
+        });
+
+        notificationDropdown?.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
+        // ❌ CLOSE WHEN CLICK OUTSIDE
+        document.addEventListener('click', function () {
+            notificationDropdown?.classList.remove('open');
+        });
+
+
+        // ✅ LOAD NOTIFICATIONS FROM DATABASE
+        async function loadNotifications() {
+            try {
+                let user = JSON.parse(localStorage.getItem("currentUser"));
+
+                if (!user || !user.id) return;
+
+                let response = await fetch(`get_notifications.php?user_id=${user.id}`);
+                let data = await response.json();
+
+                let container = document.querySelector(".notifications-list");
+                container.innerHTML = "";
+
+                let unreadCount = 0;
+
+                data.forEach(n => {
+                    if (n.is_read == 0) unreadCount++;
+
+                    container.innerHTML += `
+                <div class="notification-item ${n.is_read == 0 ? 'unread' : ''}">
+                    <div class="notif-icon"><i class="fas fa-bell"></i></div>
+                    <div class="notif-content">
+                        <div class="notif-title">${n.title}</div>
+                        <div class="notif-message">${n.message}</div>
+                        <div class="notif-time">${n.created_at}</div>
+                    </div>
+                </div>
+            `;
+                });
+
+                // 🔴 UPDATE BADGE
+                let badge = document.querySelector(".notification-badge");
+
+                if (unreadCount > 0) {
+                    badge.style.display = "flex";
+                    badge.textContent = unreadCount;
+                } else {
+                    badge.style.display = "none";
+                }
+
+            } catch (error) {
+                console.error("Notification error:", error);
+            }
+        }
+
+
+        // ✅ MARK ALL AS READ (DATABASE + UI)
+        async function markAllRead() {
+            try {
+                let user = JSON.parse(localStorage.getItem("currentUser"));
+
+                if (!user || !user.id) return;
+
+                await fetch(`mark_read.php?user_id=${user.id}`);
+
+                // reload notifications after marking read
+                loadNotifications();
+
+            } catch (error) {
+                console.error("Mark read error:", error);
+            }
+        }
+
+
+        // ✅ CONNECT BUTTON TO DATABASE FUNCTION
+        document.querySelector('.mark-read')?.addEventListener('click', function () {
+            markAllRead();
+        });
+
+
+        // 🔄 AUTO REFRESH EVERY 5 SECONDS
+        setInterval(loadNotifications, 5000);
+
+
+        function logout() {
+            localStorage.clear();       // clear everything
+            sessionStorage.clear();     // extra safety
+
+            window.location.replace("home.html"); // IMPORTANT (not href)
+        }
+
+        window.showSection = showSection;
+        window.saveProfileChanges = saveProfileChanges;
+        window.updateProfile = updateProfile;
+        window.createTeam = createTeam;
+        window.joinTeam = joinTeam;
+        window.selectProblem = selectProblem;
+        window.submitProject = submitProject;
+        window.logout = logout;
+
+        window.onpopstate = function (event) {
+            if (event.state && event.state.section) {
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(event.state.section).classList.add('active');
+            }
+        };
+
+        function openProfile() {
+            document.getElementById("profileBox").style.display = "block";
+        }
+
+        function openHelp() {
+            document.getElementById("helpBox").style.display = "block";
+        }
+
+        function closeAll() {
+            document.getElementById("profileBox").style.display = "none";
+            document.getElementById("helpBox").style.display = "none";
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+
+
+    </script>
+
+
+    <div id="profileBox" class="popup-box">
+        <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+
+        <form class="profile-form" onsubmit="updateProfile(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="profileNameInput" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>College Name</label>
+                <input type="text" id="profileCollegeInput" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Department</label>
+                <select id="profileDept" onchange="saveProfileChanges()">
+                    <option>Computer Science</option>
+                    <option>Information Technology</option>
+                    <option>Electronics</option>
+                    <option>Mechanical</option>
+                    <option>Civil</option>
+                    <option>Electrical</option>
+                    <option>MBA</option>
+                    <option>BCA</option>
+                    <option>MCA</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Year</label>
+                <select id="profileYear" onchange="saveProfileChanges()">
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <input type="text" id="profileSkills" placeholder="JavaScript, Python...">
+            </div>
+
+            <div class="form-group">
+                <label>GitHub</label>
+                <input type="url" id="profileGithub" placeholder="https://github.com/...">
+            </div>
+
+            <button type="submit" class="submit-btn">Save</button>
+            <button onclick="closeAll()" class="submit-btn close-btn">
+                Close
+            </button>
+        </form>
+
+
+    </div>
+
+
+    <div id="helpBox" class="popup-box">
+        <h3>Help Center</h3>
+        <p>Email: support@hackhub.com</p>
+        <p>Phone: +91 9063681506</p>
+
+        <button onclick="closeAll()">Close</button>
+    </div>
+
+
+</body>
+
+</html>

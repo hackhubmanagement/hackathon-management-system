@@ -1,0 +1,169 @@
+```sql
+CREATE DATABASE IF NOT EXISTS hackathon_db;
+USE hackathon_db;
+
+-- =========================
+-- ADMINS TABLE
+-- =========================
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255)
+);
+
+INSERT INTO admins (name,email,password)
+VALUES ('Admin','admin@college.edu','admin123');
+
+
+-- =========================
+-- STUDENTS TABLE
+-- =========================
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) UNIQUE,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    department VARCHAR(50),
+    year INT,
+    team_id INT,
+    skills VARCHAR(255),
+    github VARCHAR(255)
+    
+);
+
+
+-- =========================
+-- HACKATHONS TABLE
+-- =========================
+CREATE TABLE hackathons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200),
+    theme VARCHAR(200),
+    rules TEXT,
+    team_size INT,
+    fee INT,
+    registration_deadline DATETIME,
+    submission_deadline DATETIME,
+    upi_id VARCHAR(100),
+    status VARCHAR(20) DEFAULT 'active'
+);
+
+
+-- =========================
+-- TEAMS TABLE
+-- =========================
+CREATE TABLE teams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_name VARCHAR(200),
+    leader_email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    score INT DEFAULT 0,
+    selected_problem VARCHAR(255)
+);
+
+
+-- =========================
+-- TEAM MEMBERS TABLE
+-- =========================
+CREATE TABLE team_members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    email VARCHAR(100)
+);
+
+
+-- =========================
+-- REGISTRATIONS TABLE
+-- =========================
+CREATE TABLE registrations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    hackathon_id INT
+);
+
+
+-- =========================
+-- PROBLEMS TABLE
+-- =========================
+CREATE TABLE problems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200),
+    description TEXT,
+    domain VARCHAR(100)
+);
+
+
+-- =========================
+-- SUBMISSIONS TABLE
+-- =========================
+CREATE TABLE submissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    hackathon_id INT,
+    team_name VARCHAR(255),
+    project_name VARCHAR(255),
+    description TEXT,
+    github_repo VARCHAR(255),
+    domain VARCHAR(100),
+    demo_link VARCHAR(255),
+    status VARCHAR(20) DEFAULT 'pending',
+    score INT DEFAULT 0,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- =========================
+-- ANNOUNCEMENTS TABLE
+-- =========================
+CREATE TABLE announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200),
+    message TEXT,
+    priority VARCHAR(20)
+);
+
+
+-- =========================
+-- JUDGES TABLE
+-- =========================
+CREATE TABLE judges (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    expertise VARCHAR(200)
+);
+
+
+-- =========================
+-- SYSTEM LOGS TABLE
+-- =========================
+CREATE TABLE system_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    log_message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- =========================
+-- EVENTS TABLE
+-- =========================
+CREATE TABLE events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    event_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- =========================
+-- DEFAULT EVENTS
+-- =========================
+INSERT INTO events (title, description, event_date) VALUES
+('Hackathon Opening Ceremony', 'Introduction to the hackathon and rules briefing.', '2026-04-10'),
+('Team Formation Deadline', 'Last day to create or join teams.', '2026-04-12'),
+('Project Submission Deadline', 'Final project submission date.', '2026-04-20'),
+('Final Presentation', 'Teams present their projects to judges.', '2026-04-22');
+```

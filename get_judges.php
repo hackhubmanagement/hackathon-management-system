@@ -1,0 +1,15 @@
+<?php
+
+include "db.php";
+
+$result = mysqli_query($conn,"SELECT * FROM judges");
+
+$judges = [];
+
+while($row = mysqli_fetch_assoc($result)){
+$judges[] = $row;
+}
+
+echo json_encode($judges);
+
+?>
