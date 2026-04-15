@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`) VALUES
-(9, 'Admin1', 'admin1@hackova.com', '123'),
+
 (10, 'Admin', 'admin@college.edu', '$2y$10$XV8rP2li5oSP2cioLZGrmOtmyRxW/CGMA66Vv6zh3nX/X3DU/q8M.');
 
 -- --------------------------------------------------------

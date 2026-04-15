@@ -267,6 +267,8 @@ body:not(.dark-mode) .dark-mode-toggle .fa-sun {
 
 .hero-buttons {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 16px;
     margin-bottom: 40px;
 }
@@ -311,11 +313,18 @@ body:not(.dark-mode) .dark-mode-toggle .fa-sun {
 .hero-stats {
     display: flex;
     gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .hero-stat {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    min-width: 140px;
+    max-width: 180px;
+    text-align: center;
 }
 
 .stat-number {
@@ -687,6 +696,18 @@ body:not(.dark-mode) .dark-mode-toggle .fa-sun {
 
     .hero-buttons {
         flex-direction: column;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .hero-stat {
+        min-width: auto;
+        width: 100%;
+        max-width: 260px;
     }
 }
 

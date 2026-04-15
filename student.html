@@ -129,6 +129,116 @@
         .quick-action-btn:active {
             transform: translateY(-2px) !important;
         }
+
+        .available-teams-panel {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .available-teams-panel h4 {
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .available-teams-panel .panel-subtitle {
+            margin: 0 0 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .available-team-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .available-team-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(12, 100, 208, 0.12);
+        }
+
+        .available-team-card .team-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .available-team-card .team-label {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .available-team-card .team-code {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .available-team-card .join-hint {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+        }
+
+        /* Hackathon Category Buttons */
+        .category-btn {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .category-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .team-card {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        .team-summary-card {
+            width: auto;
+            max-width: 540px;
+            min-height: auto;
+            margin: 0 auto;
+        }
     </style>
 
     <script>
@@ -198,7 +308,7 @@
                             </button>
                             <div class="settings-dropdown">
                                 <p onclick="openProfile()"><i class="fas fa-user"></i> Profile</p>
-                                <p onclick="openHelp()"><i class="fas fa-question-circle"></i> Help Center</p>
+                                <p class="help-trigger" onclick="openHelp(event)"><i class="fas fa-question-circle"></i> Help Center</p>
                                 <p onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</p>
                             </div>
                         </div>
@@ -232,6 +342,9 @@
                     </a></li>
                 <li><a href="#" onclick="showSection('available-hackathons'); closeSidebar();" class="nav-link">
                         <i class="fas fa-rocket"></i> <span>Hackathons</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('add-college-hackathon'); closeSidebar();" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> <span>Add College Hackathon</span>
                     </a></li>
                 <li><a href="#" onclick="showSection('my-team', event); closeSidebar();" class="nav-link">
                         <i class="fas fa-users"></i> <span>My Team</span>
@@ -398,7 +511,7 @@
                                 <i class="fas fa-life-ring"></i> Support
                             </h4>
                             <p style="margin: 0 0 0.75rem 0; font-size: 0.9rem; opacity: 0.95;">Need help?</p>
-                            <button onclick="openHelp()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s;">
+                            <button class="help-trigger" onclick="openHelp(event)" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.6rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s;">
                                 <i class="fas fa-question-circle"></i> Help Center
                             </button>
                         </div>
@@ -446,7 +559,134 @@
                         challenges, and showcase your skills.</p>
                 </div>
 
+                <!-- Hackathon Categories -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <button class="category-btn active" onclick="switchHackathonCategory('all')" data-category="all">
+                        <i class="fas fa-rocket"></i> All Hackathons
+                    </button>
+                    <button class="category-btn" onclick="switchHackathonCategory('college')" data-category="college">
+                        <i class="fas fa-university"></i> College Hackathons
+                    </button>
+                    <button class="category-btn" onclick="switchHackathonCategory('admin')" data-category="admin">
+                        <i class="fas fa-globe"></i> Website Mines
+                    </button>
+                    <button class="category-btn" onclick="switchHackathonCategory('suggested')" data-category="suggested">
+                        <i class="fas fa-star"></i> Suggested for You
+                    </button>
+                </div>
+
                 <div id="hackathonsList" class="teams-grid"></div>
+            </section>
+
+            <!-- Add College Hackathon Section -->
+            <section id="add-college-hackathon" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-summary')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-plus-circle"></i> Add College Hackathon</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Submit your college's hackathon for review and publication on the platform.</p>
+                </div>
+
+                <div class="card" style="max-width: 800px; margin: 0 auto;">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);"><i class="fas fa-rocket"></i> Hackathon Details</h3>
+
+                    <form id="collegeHackathonForm" onsubmit="submitCollegeHackathon(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-tag"></i> Hackathon Name *</label>
+                                <input type="text" id="hackathonName" placeholder="e.g., Campus AI Challenge 2026" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-themeisle"></i> Theme *</label>
+                                <select id="hackathonTheme" required>
+                                    <option value="">Select Theme</option>
+                                    <option value="AI">Artificial Intelligence</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Mobile">Mobile Development</option>
+                                    <option value="IoT">Internet of Things</option>
+                                    <option value="Blockchain">Blockchain</option>
+                                    <option value="Cybersecurity">Cybersecurity</option>
+                                    <option value="Data Science">Data Science</option>
+                                    <option value="Game Development">Game Development</option>
+                                    <option value="Open Innovation">Open Innovation</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-align-left"></i> Description</label>
+                            <textarea id="hackathonDescription" rows="4" placeholder="Describe your hackathon, objectives, and what participants will build..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-users"></i> Team Size</label>
+                                <select id="hackathonTeamSize">
+                                    <option value="2">2 members</option>
+                                    <option value="3">3 members</option>
+                                    <option value="4" selected>4 members</option>
+                                    <option value="5">5 members</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-trophy"></i> Prize Pool</label>
+                                <input type="text" id="hackathonPrize" placeholder="e.g., ₹50,000 or $1,000">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar"></i> Registration Deadline *</label>
+                                <input type="datetime-local" id="hackathonRegDeadline" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-check"></i> Submission Deadline *</label>
+                                <input type="datetime-local" id="hackathonSubDeadline" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-gavel"></i> Rules & Guidelines</label>
+                            <textarea id="hackathonRules" rows="4" placeholder="Specify the rules, eligibility criteria, judging criteria, etc."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Contact Email</label>
+                                <input type="email" id="hackathonContactEmail" placeholder="hackathon@college.edu">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Contact Phone</label>
+                                <input type="tel" id="hackathonContactPhone" placeholder="+91-9876543210">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> College Location *</label>
+                            <input type="text" id="hackathonLocation" placeholder="e.g., Mumbai Campus, SVKM" required />
+                        </div>
+
+                        <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                            <h4 style="margin: 0 0 0.5rem 0; color: var(--text-secondary); font-size: 0.9rem;">
+                                <i class="fas fa-info-circle"></i> Important Notes
+                            </h4>
+                            <ul style="margin: 0; padding-left: 1.2rem; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4;">
+                                <li>Your hackathon will be reviewed by administrators before publication</li>
+                                <li>Make sure all dates are in the future and submission deadline is after registration deadline</li>
+                                <li>Provide clear rules and judging criteria for better approval chances</li>
+                                <li>You'll receive a notification once your hackathon is reviewed</li>
+                            </ul>
+                        </div>
+
+                        <button type="submit" class="submit-btn" style="width: 100%; padding: 1rem;">
+                            <i class="fas fa-paper-plane"></i> Submit for Review
+                        </button>
+                    </form>
+                </div>
             </section>
 
             <!-- My Team Section with Chat Box -->
@@ -514,6 +754,14 @@
                                     </button>
                                 </div>
                             </div>
+
+                            <div id="availableTeamsSection" class="available-teams-panel">
+                                <h4>Available Teams</h4>
+                                <p class="panel-subtitle">Browse teams with fewer than 4 members and join by code.</p>
+                                <div id="availableTeamList" class="available-team-list">
+                                    <p>Loading available teams...</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -559,7 +807,7 @@
                         points for successful implementations.</p>
                 </div>
 
-                <div id="problemsList" class="problems-list"></div>
+                <div id="problemsList" class="teams-grid problems-list"></div>
             </section>
 
             <section id="submit-project" class="content-section">
@@ -635,7 +883,7 @@
                     </p>
                 </div>
 
-                <div id="studentAnnouncements" class="announcements-list"></div>
+                <div id="studentAnnouncements" class="teams-grid announcements-list"></div>
             </section>
 
             <section id="leaderboard" class="content-section">
@@ -657,13 +905,23 @@
                             <tr>
                                 <th><i class="fas fa-crown"></i> Rank</th>
                                 <th><i class="fas fa-users"></i> Team Name</th>
-                                <th><i class="fas fa-school"></i> College</th>
                                 <th><i class="fas fa-folder-open"></i> Project</th>
                                 <th><i class="fas fa-star"></i> Score</th>
                             </tr>
                         </thead>
                         <tbody id="studentLeaderboardBody"></tbody>
                     </table>
+                </div>
+
+                <div style="margin-top: 36px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <h3>Hackathon Top 3 Winners</h3>
+                            <p class="section-subtitle">Each hackathon shows its top 3 teams, prize pool, and score.</p>
+                        </div>
+                        <button class="action-btn" type="button" onclick="toggleHackathonWinners('studentHackathonWinners', this)">Show Top 3 Winners</button>
+                    </div>
+                    <div id="studentHackathonWinners" style="display:none;"></div>
                 </div>
             </section>
 
@@ -680,7 +938,7 @@
                         judges.</p>
                 </div>
 
-                <div id="mySubmissionsList" class="teams-list"></div>
+                <div id="mySubmissionsList" class="teams-grid teams-list"></div>
             </section>
         </main>
         </div><!-- End dashboard-container -->
@@ -694,8 +952,8 @@
         let perfChart = null;
 
         document.addEventListener('DOMContentLoaded', function () {
-            if (localStorage.getItem("theme") === "dark") {
-                document.body.classList.add("dark-mode");
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
             }
 
             const currentUser = localStorage.getItem('currentUser');
@@ -750,6 +1008,9 @@
             loadAvailableHackathons();
             loadAnnouncements();
             loadLeaderboard();
+            if (!currentTeam) {
+                loadAvailableTeams();
+            }
             checkUserTeam();
             loadEvents();
             loadRecentActivity();
@@ -909,6 +1170,9 @@
                     break;
                 case 'available-hackathons':
                     loadAvailableHackathons();
+                    break;
+                case 'add-college-hackathon':
+                    // No specific loading needed for this section
                     break;
                 case 'problem-statements':
                     loadProblemStatements();
@@ -1188,25 +1452,70 @@
             return [];
         }
 
-        async function loadAvailableHackathons() {
-            let response = await fetch("get_hackathons.php");
+        async function loadAvailableHackathons(category = 'all') {
+            let url = "get_hackathons.php";
+
+            if (category === 'college') {
+                url += "?source=college";
+            } else if (category === 'admin') {
+                url += "?source=admin";
+            } else if (category === 'suggested') {
+                url += "?suggested=1&source=college&student_id=" + currentUser?.id;
+            }
+
+            let response = await fetch(url);
             let hackathons = await response.json();
 
             const registeredHackathons = currentTeam && currentTeam.id ? await fetchRegisteredHackathons(currentTeam.id) : [];
 
+            // For suggested hackathons, remove already registered hackathons entirely
+            if (category === 'suggested') {
+                hackathons = hackathons.filter(h => !registeredHackathons.includes(Number(h.id)));
+            }
+
+            // Sort so unregistered hackathons appear first in Explore
+            hackathons.sort((a, b) => {
+                const aRegistered = registeredHackathons.includes(Number(a.id));
+                const bRegistered = registeredHackathons.includes(Number(b.id));
+                if (aRegistered === bRegistered) return 0;
+                return aRegistered ? 1 : -1;
+            });
+
             let container = document.getElementById("hackathonsList");
             container.innerHTML = "";
 
+            if (hackathons.length === 0) {
+                const emptyTitle = category === 'suggested' ? 'No suggested college hackathons yet' : 'No hackathons found in this category';
+                const emptyText = category === 'suggested'
+                    ? 'Register for more hackathons to get better suggestions based on your preferred themes.'
+                    : 'Try exploring other categories or check back later!';
+
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                        <i class="fas fa-inbox" style="font-size: 3rem; opacity: 0.5; margin-bottom: 1rem;"></i>
+                        <p style="margin: 0; font-size: 1.1rem;">${emptyTitle}</p>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">${emptyText}</p>
+                    </div>
+                `;
+                return;
+            }
+
             hackathons.forEach(h => {
                 const isRegistered = registeredHackathons.includes(Number(h.id));
+                const sourceBadge = h.source === 'college' ?
+                    '<span style="background: #10b981; color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; margin-left: 0.5rem;"><i class="fas fa-university"></i> College</span>' :
+                    '<span style="background: #3b82f6; color: white; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; margin-left: 0.5rem;"><i class="fas fa-globe"></i> Official</span>';
+
                 const buttonHtml = isRegistered
                     ? `<button class="submit-btn registered" disabled><i class="fas fa-check"></i> Registered</button>`
                     : `<button class="submit-btn" onclick="registerHackathon(${h.id}, '${h.name}', ${h.team_size})"><i class="fas fa-sign-in-alt"></i> Register</button>`;
 
                 container.innerHTML += `
                     <div class="team-card">
-                        <h3><i class="fas fa-rocket"></i> ${h.name}</h3>
+                        <h3><i class="fas fa-rocket"></i> ${h.name} ${sourceBadge}</h3>
                         <p><strong>Theme:</strong> ${h.theme}</p>
+                        <p><strong>College:</strong> ${h.college_name || (h.source === 'college' ? 'College Hackathon' : 'Official')}</p>
+                        <p><strong>Location:</strong> ${h.location || (h.source === 'college' ? 'College Campus' : 'Online / Campus')}</p>
                         <p><strong>Team Size:</strong> ${h.team_size}</p>
                         <p style="color:green; font-weight:bold;">
                             Prize Pool: ${h.prize_pool}
@@ -1216,6 +1525,34 @@
                     </div>
                 `;
             });
+        }
+
+        async function loadAvailableTeams() {
+            const container = document.getElementById("availableTeamList");
+            if (!container) return;
+
+            try {
+                let response = await fetch("get_teams.php?available=1");
+                let teams = await response.json();
+
+                if (!teams || teams.length === 0) {
+                    container.innerHTML = '<p>No available teams right now. Create your own or check back soon.</p>';
+                    return;
+                }
+
+                container.innerHTML = teams.map(team => `
+                    <div class="available-team-card">
+                        <div class="team-info">
+                            <span class="team-label">${team.team_name}</span>
+                            <span class="team-code">Team Code: ${team.id}</span>
+                        </div>
+                        <span class="join-hint">Open</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error("Error loading available teams:", error);
+                container.innerHTML = '<p>Unable to load available teams.</p>';
+            }
         }
 
         async function registerHackathon(id, name, teamSize) {
@@ -1256,7 +1593,7 @@
             let response = await fetch("get_team.php?email=" + student.email);
             let result = await response.text();
 
-            if (result !== "none") {
+            if (result && result.trim() !== "none") {
                 currentTeam = JSON.parse(result);
                 localStorage.setItem("team", JSON.stringify(currentTeam));
                 loadDashboardSummary();
@@ -1270,7 +1607,7 @@
                 }
 
                 document.getElementById("teamDetails").innerHTML = `
-                    <div class="team-card">
+                    <div class="team-card team-summary-card">
                         <h3><i class="fas fa-users"></i> ${currentTeam.team_name}</h3>
                         <p><strong>Team Code:</strong> ${currentTeam.id}</p>
                         <p><strong>Leader:</strong> ${currentTeam.leader_email}</p>
@@ -1281,6 +1618,10 @@
                 await loadTeamMembers(currentTeam.id);
 
                 document.getElementById("createTeamForm").style.display = "none";
+                const availableSection = document.getElementById("availableTeamsSection");
+                if (availableSection) {
+                    availableSection.style.display = "none";
+                }
                 loadAvailableHackathons();
             }
             else {
@@ -1294,6 +1635,12 @@
                 document.getElementById("teamDetails").innerHTML =
                     "<p>You are not part of any team yet.</p>";
                 document.getElementById("teamMembersBox").style.display = "none";
+
+                const availableSection = document.getElementById("availableTeamsSection");
+                if (availableSection) {
+                    availableSection.style.display = "block";
+                }
+                loadAvailableTeams();
             }
 
             loadMessages();
@@ -1326,13 +1673,17 @@
                     members.forEach((member, index) => {
                         const isLeader = currentTeam && currentTeam.leader_email === member.email;
                         const memberType = isLeader ? 'Leader' : 'Team Member';
+                        const canRemove = currentTeam && currentTeam.leader_email === currentStudent.email && !isLeader;
                         membersHtml += `
                             <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
                                 <div>
                                     <strong>${member.name}</strong> <span style="color: var(--text-muted); font-size: 12px;">(${memberType})</span>
                                     <div style="font-size: 13px; color: var(--text-muted);">${member.email}</div>
                                 </div>
-                                <i class="fas fa-user-circle" style="font-size: 24px; color: var(--primary-color);"></i>
+                                <div style="display:flex; align-items:center; gap:0.75rem;">
+                                    ${canRemove ? `<button type="button" onclick="removeTeamMember('${member.email}')" style="background:#ef4444;color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:12px;">Remove</button>` : ''}
+                                    <i class="fas fa-user-circle" style="font-size: 24px; color: var(--primary-color);"></i>
+                                </div>
                             </div>
                         `;
                     });
@@ -1354,13 +1705,49 @@
             }
         }
 
+        async function removeTeamMember(memberEmail) {
+            if (!currentTeam || !currentTeam.id) {
+                alert("Team information is missing.");
+                return;
+            }
+
+            if (!confirm("Remove this member from the team?")) {
+                return;
+            }
+
+            try {
+                let formData = new FormData();
+                formData.append('team_id', currentTeam.id);
+                formData.append('member_email', memberEmail);
+                formData.append('leader_email', currentStudent.email);
+
+                let response = await fetch('remove_team_member.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let result = await response.text();
+                result = result.trim();
+
+                if (result === 'success') {
+                    alert('Member removed successfully.');
+                    await loadTeamMembers(currentTeam.id);
+                } else {
+                    alert(result || 'Unable to remove member.');
+                }
+            } catch (error) {
+                console.error('Remove team member error:', error);
+                alert('Failed to remove member. Please try again.');
+            }
+        }
+
         function updateTeamDisplay() {
             const teamDetails = document.getElementById('teamDetails');
             const createForm = document.getElementById('createTeamForm');
 
             if (currentTeam) {
                 teamDetails.innerHTML = `
-                    <div class="team-card">
+                    <div class="team-card team-summary-card">
                         <h3><i class="fas fa-users"></i> ${currentTeam.team_name}</h3>
                         <p><strong>Team Code:</strong> ${currentTeam.id}</p>
                         <p><strong>Leader:</strong> ${currentTeam.leader_email}</p>
@@ -1573,7 +1960,7 @@
             }
         }
         async function loadHackathonsForSubmission() {
-            let response = await fetch("get_hackathons.php");
+            let response = await fetch("get_hackathons.php?exclude_college=1");
             let hackathons = await response.json();
 
             let select = document.getElementById("projectHackathon");
@@ -1708,13 +2095,80 @@
             <tr>
                 <td>${index + 1}</td>
                 <td>${team.team_name}</td>
-                <td>${team.college_name || 'N/A'}</td>
                 <td>${team.project_name}</td>
                 <td>${team.score}</td>
             </tr>
         `;
             });
+
+            await loadHackathonWinners('studentHackathonWinners');
         }
+
+        async function loadHackathonWinners(containerId) {
+            try {
+                const response = await fetch('get_top3_by_hackathon.php');
+                const hackathons = await response.json();
+                const container = document.getElementById(containerId);
+
+                if (!container) return;
+                if (!hackathons || hackathons.length === 0) {
+                    container.innerHTML = '<p>No hackathon winners have been announced yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = hackathons.map(h => `
+                    <div class="team-card" style="margin-bottom:20px; padding:20px; border:1px solid rgba(0,0,0,0.08); border-radius:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                            <div>
+                                <h4 style="margin:0;">${h.hackathon_name}</h4>
+                                <p style="margin:8px 0 0; color:var(--text-secondary);"><strong>Prize Pool:</strong> ${h.prize_pool || 'N/A'}</p>
+                            </div>
+                            <div style="text-align:right; color:var(--text-secondary);">
+                                <span style="font-size:0.95rem;">Top 3 Teams</span>
+                            </div>
+                        </div>
+                        <table style="width:100%; border-collapse:collapse;">
+                            <thead>
+                                <tr style="border-bottom:1px solid rgba(0,0,0,0.1);">
+                                    <th style="padding:8px 0; text-align:left;">Rank</th>
+                                    <th style="padding:8px 0; text-align:left;">Team</th>
+                                    <th style="padding:8px 0; text-align:left;">Project</th>
+                                    <th style="padding:8px 0; text-align:left;">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${h.winners.map((winner, idx) => `
+                                    <tr>
+                                        <td style="padding:10px 0;">${idx + 1}</td>
+                                        <td style="padding:10px 0;">${winner.team_name}</td>
+                                        <td style="padding:10px 0;">${winner.project_name}</td>
+                                        <td style="padding:10px 0; font-weight:700;">${winner.score}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading hackathon winners:', error);
+            }
+        }
+
+        function toggleHackathonWinners(containerId, button) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                button.textContent = 'Hide Top 3 Winners';
+                if (container.innerHTML.trim() === '') {
+                    loadHackathonWinners(containerId);
+                }
+            } else {
+                container.style.display = 'none';
+                button.textContent = 'Show Top 3 Winners';
+            }
+        }
+
         async function loadMySubmissions() {
 
             if (!currentTeam || !currentTeam.id) {
@@ -1781,21 +2235,6 @@
             });
         }
 
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem("theme", "dark");
-            } else {
-                localStorage.setItem("theme", "light");
-            }
-
-            if (perfChart) {
-                loadDashboardSummary();
-                loadRecentActivity();
-            }
-        }
 
         async function loadMessages() {
             if (!currentTeam) return;
@@ -1927,9 +2366,18 @@
         function logout() {
             localStorage.clear();       // clear everything
             sessionStorage.clear();     // extra safety
-
-            window.location.replace("home.html"); // IMPORTANT (not href)
+            // ✅ Use replace instead of href to prevent back button access
+            window.location.replace("home.html");
         }
+
+
+
+        
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.pushState(null, null, location.href);
+};
+
 
         window.showSection = showSection;
         window.saveProfileChanges = saveProfileChanges;
@@ -1939,6 +2387,8 @@
         window.selectProblem = selectProblem;
         window.submitProject = submitProject;
         window.logout = logout;
+        window.openHelp = openHelp;
+        window.closeAll = closeAll;
 
         window.onpopstate = function (event) {
             if (event.state && event.state.section) {
@@ -1953,7 +2403,10 @@
             document.getElementById("profileBox").style.display = "block";
         }
 
-        function openHelp() {
+        function openHelp(event) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
             document.getElementById("helpBox").style.display = "block";
         }
 
@@ -1971,6 +2424,72 @@
         // Load dark mode preference
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
+        }
+
+        // Hackathon Category Switching
+        function switchHackathonCategory(category) {
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+
+            // Load hackathons for selected category
+            loadAvailableHackathons(category);
+        }
+
+        // Submit College Hackathon
+        async function submitCollegeHackathon(event) {
+            event.preventDefault();
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || !currentUser.email) {
+                alert('Please login first');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('hackathonName').value);
+            formData.append('theme', document.getElementById('hackathonTheme').value);
+            formData.append('description', document.getElementById('hackathonDescription').value);
+            formData.append('rules', document.getElementById('hackathonRules').value);
+            formData.append('team_size', document.getElementById('hackathonTeamSize').value);
+            formData.append('registration_deadline', document.getElementById('hackathonRegDeadline').value);
+            formData.append('submission_deadline', document.getElementById('hackathonSubDeadline').value);
+            formData.append('prize_pool', document.getElementById('hackathonPrize').value);
+            const location = document.getElementById('hackathonLocation').value.trim();
+            if (!location) {
+                alert('Please enter the college location for the hackathon.');
+                return;
+            }
+
+            formData.append('contact_email', document.getElementById('hackathonContactEmail').value);
+            formData.append('contact_phone', document.getElementById('hackathonContactPhone').value);
+            formData.append('location', location);
+            formData.append('student_email', currentUser.email);
+            formData.append('student_id', currentUser.id || '');
+
+            try {
+                const response = await fetch('submit_college_hackathon.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(result.message);
+                    // Reset form
+                    document.getElementById('collegeHackathonForm').reset();
+                    // Go back to dashboard
+                    showSection('dashboard-summary');
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error submitting college hackathon:', error);
+                alert('An error occurred while submitting your hackathon. Please try again.');
+            }
         }
 
 

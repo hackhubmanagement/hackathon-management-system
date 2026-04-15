@@ -76,10 +76,225 @@
             background: rgba(255, 255, 255, 0.3);
             transform: scale(1.05);
         }
+
+        /* Status Tab Buttons */
+        .status-tab {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-tab:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .status-tab.active {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .status-tab.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+        }
+
+        /* College Hackathons Grid */
+        .hackathons-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        }
+
+        .admin-cards-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            width: 100%;
+        }
+
+        .admin-card {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        .team-members-list {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-member {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .team-member:last-child {
+            border-bottom: none;
+        }
+
+        .member-name {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .member-email {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .college-hackathon-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .college-hackathon-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .hackathon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .hackathon-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .hackathon-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .meta-value {
+            color: var(--text-primary);
+        }
+
+        .hackathon-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            flex: 1;
+        }
+
+        .approve-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .approve-btn:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .reject-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .reject-btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .view-btn {
+            background: #6b7280;
+            color: white;
+        }
+
+        .view-btn:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 
 <body class="dashboard-page admin-dashboard">
+    <!-- 🔐 AUTHENTICATION GUARD - Prevents cached page access after logout -->
+    <script>
+    (function() {
+        const currentUser = localStorage.getItem('currentUser');
+        const userType = localStorage.getItem('userType');
+        if (!currentUser || userType !== 'admin') {
+            window.location.replace('index.html');
+        }
+    })();
+    </script>
+    
     <div class="dashboard-wrapper">
         <!-- Modern Header -->
         <div style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
@@ -156,11 +371,11 @@
                 <li><a href="#" onclick="showSection('problem-statements', event); closeSidebar();" class="nav-link">
                         <i class="fas fa-tasks"></i> <span>Problem Statements</span>
                     </a></li>
-                <li><a href="#" onclick="showSection('submissions', event); closeSidebar();" class="nav-link">
-                        <i class="fas fa-upload"></i> <span>Submissions</span>
-                    </a></li>
                 <li><a href="#" onclick="showSection('judge-panel', event); closeSidebar();" class="nav-link">
                         <i class="fas fa-gavel"></i> <span>Judge Panel</span>
+                    </a></li>
+                <li><a href="#" onclick="showSection('college-hackathons', event); closeSidebar();" class="nav-link">
+                        <i class="fas fa-university"></i> <span>College Hackathons</span>
                     </a></li>
                 <li><a href="#" onclick="showSection('announcements', event); closeSidebar();" class="nav-link">
                         <i class="fas fa-bullhorn"></i> <span>Announcements</span>
@@ -404,14 +619,25 @@
                 </div>
 
                 <div style="background: var(--bg-primary); border-radius: var(--radius-lg); padding: 32px; border: 1.5px solid var(--border-color); box-shadow: var(--shadow-md);">
-                    <form class="hackathon-form" onsubmit="createHackathon(event)">
+                    <form id="createHackathonForm" class="hackathon-form" onsubmit="createHackathon(event)">
                         <div class="form-group">
                             <label><i class="fas fa-tag"></i> Event Name</label>
                             <input type="text" id="hackathonName" placeholder="e.g., Techathon 2024" required>
                         </div>
                         <div class="form-group">
-                            <label><i class="fas fa-palette"></i> Event Theme</label>
-                            <input type="text" id="hackathonTheme" placeholder="e.g., AI for Social Good" required>
+                            <label><i class="fas fa-palette"></i> Theme *</label>
+                            <select id="hackathonTheme" required>
+                                <option value="">Select Theme</option>
+                                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Mobile Development">Mobile Development</option>
+                                <option value="Internet of Things">Internet of Things</option>
+                                <option value="Blockchain">Blockchain</option>
+                                <option value="Cybersecurity">Cybersecurity</option>
+                                <option value="Data Science">Data Science</option>
+                                <option value="Game Development">Game Development</option>
+                                <option value="Open Innovation">Open Innovation</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label><i class="fas fa-file-alt"></i> Rules & Guidelines</label>
@@ -452,7 +678,7 @@
                     </h3>
                     <p style="color: var(--text-secondary); font-size: 14px;">List of currently active and upcoming hackathon events</p>
                 </div>
-                <div id="eventsList"></div>
+                <div id="eventsList" class="admin-cards-grid"></div>
             </section>
 
             <section id="team-management" class="content-section">
@@ -468,7 +694,7 @@
                 </div>
 
                 <div class="teams-list">
-                    <div id="teamsContainer"></div>
+                    <div id="teamsContainer" class="admin-cards-grid"></div>
                 </div>
             </section>
 
@@ -511,32 +737,7 @@
                     </form>
                 </div>
 
-                <div class="problems-list" id="problemsList"></div>
-            </section>
-
-            <section id="submissions" class="content-section">
-                <div class="section-header">
-                    <button class="back-btn" onclick="showSection('dashboard-overview')">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <h2><i class="fas fa-upload"></i> Project Submissions</h2>
-                </div>
-
-                <div style="margin-bottom: 32px;">
-                    <p class="section-subtitle">Review and evaluate all project submissions. Assign scores and provide feedback to teams.</p>
-                </div>
-
-                <div class="filters-container">
-                    <div class="filter-group">
-                        <select id="submissionFilter" onchange="filterSubmissions()">
-                            <option value="all">All Submissions</option>
-                            <option value="pending">Pending Review</option>
-                            <option value="reviewed">Reviewed</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="submissionsList" class="teams-list"></div>
+                <div class="admin-cards-grid problems-list" id="problemsList"></div>
             </section>
 
             <section id="judge-panel" class="content-section">
@@ -555,6 +756,10 @@
                     <div class="form-group">
                         <label><i class="fas fa-envelope"></i> Email</label>
                         <input type="email" id="judgeEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="judgePassword" required>
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-brain"></i> Expertise</label>
@@ -601,7 +806,7 @@
                     </button>
                 </form>
 
-                <div class="announcements-list" id="announcementsList"></div>
+                <div class="admin-cards-grid announcements-list" id="announcementsList"></div>
             </section>
 
             <section id="leaderboard" class="content-section">
@@ -620,13 +825,54 @@
                                 <th>Rank</th>
                                 <th>Team Name</th>
                                 <th>Project</th>
-                                <th>College</th>
                                 <th>Score</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="leaderboardBody"></tbody>
                     </table>
+                </div>
+
+                <div style="margin-top: 36px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <h3>Hackathon Top 3 Winners</h3>
+                            <p class="section-subtitle">Each hackathon displays its top 3 scoring teams along with prize pool and marks.</p>
+                        </div>
+                        <button class="action-btn" type="button" onclick="toggleHackathonWinners('adminHackathonWinners', this)">Show Top 3 Winners</button>
+                    </div>
+                    <div id="adminHackathonWinners" style="display:none;"></div>
+                </div>
+            </section>
+
+            <!-- College Hackathons Review Section -->
+            <section id="college-hackathons" class="content-section">
+                <div class="section-header">
+                    <button class="back-btn" onclick="showSection('dashboard-overview')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2><i class="fas fa-university"></i> College Hackathons</h2>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <p class="section-subtitle">Review and approve college-submitted hackathons. Manage community-driven hackathon events.</p>
+                </div>
+
+                <!-- Status Filter Tabs -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <button class="status-tab active" onclick="switchCollegeHackathonStatus('pending')" data-status="pending">
+                        <i class="fas fa-clock"></i> Pending Review
+                    </button>
+                    <button class="status-tab" onclick="switchCollegeHackathonStatus('approved')" data-status="approved">
+                        <i class="fas fa-check"></i> Approved
+                    </button>
+                    <button class="status-tab" onclick="switchCollegeHackathonStatus('rejected')" data-status="rejected">
+                        <i class="fas fa-times"></i> Rejected
+                    </button>
+                </div>
+
+                <div id="collegeHackathonsList" class="hackathons-grid">
+                    <!-- College hackathons will be loaded here -->
                 </div>
             </section>
             </main>
@@ -641,7 +887,7 @@
 
 
             // ✅ LOAD DARK MODE FIRST
-            if (localStorage.getItem("theme") === "dark") {
+            if (localStorage.getItem("darkMode") === "true") {
                 document.body.classList.add("dark-mode");
             }
             const currentUser = localStorage.getItem('currentUser');
@@ -859,8 +1105,8 @@
                 'hackathon-creation': 2,
                 'team-management': 3,
                 'problem-statements': 4,
-                'submissions': 5,
-                'judge-panel': 6,
+                'judge-panel': 5,
+                'college-hackathons': 6,
                 'announcements': 7,
                 'leaderboard': 8
             };
@@ -885,11 +1131,11 @@
                 case 'problem-statements':
                     loadProblemStatements();
                     break;
-                case 'submissions':
-                    loadSubmissions();
-                    break;
                 case 'judge-panel':
                     loadJudges();
+                    break;
+                case 'college-hackathons':
+                    loadCollegeHackathons('pending');
                     break;
                 case 'announcements':
                     loadAnnouncements();
@@ -995,7 +1241,10 @@
 
             if (result.trim() == "success") {
                 alert("Hackathon Created Successfully");
+                const form = document.getElementById("createHackathonForm");
+                if (form) form.reset();
                 loadHackathons();
+                window.location.reload();
             }
             else {
                 alert(result);
@@ -1048,15 +1297,52 @@
             let container = document.getElementById("teamsContainer");
             container.innerHTML = "";
 
+            if (!teams || teams.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary);">No teams available yet.</p>';
+                return;
+            }
+
             teams.forEach(team => {
                 container.innerHTML += `
-                    <div class="team-card">
+                    <div class="team-card admin-card">
                         <h3><i class="fas fa-users"></i> ${team.team_name}</h3>
                         <p><strong>Team ID:</strong> ${team.id}</p>
                         <p><strong>Status:</strong> Active</p>
+                        <div class="team-members-list" id="teamMembers_${team.id}">
+                            <p style="margin: 0; color: var(--text-secondary);">Loading members...</p>
+                        </div>
                     </div>
                 `;
+                loadAdminTeamMembers(team.id);
             });
+        }
+
+        async function loadAdminTeamMembers(teamId) {
+            try {
+                let response = await fetch(`get_team_members.php?team_id=${teamId}`);
+                let members = await response.json();
+                let membersBox = document.getElementById(`teamMembers_${teamId}`);
+
+                if (!membersBox) return;
+
+                if (!members || members.length === 0) {
+                    membersBox.innerHTML = '<p style="margin: 0; color: var(--text-secondary);">No members yet.</p>';
+                    return;
+                }
+
+                membersBox.innerHTML = members.map(member => `
+                    <div class="team-member">
+                        <span class="member-name">${member.name}</span>
+                        <span class="member-email">${member.email}</span>
+                    </div>
+                `).join('');
+            } catch (error) {
+                const membersBox = document.getElementById(`teamMembers_${teamId}`);
+                if (membersBox) {
+                    membersBox.innerHTML = '<p style="margin: 0; color: var(--danger-color);">Failed to load members.</p>';
+                }
+                console.error('Admin team members load error:', error);
+            }
         }
 
         async function addProblemStatement(event) {
@@ -1207,6 +1493,7 @@
             let formData = new FormData();
             formData.append("name", document.getElementById("judgeName").value);
             formData.append("email", document.getElementById("judgeEmail").value);
+            formData.append("password", document.getElementById("judgePassword").value);
             formData.append("expertise", document.getElementById("judgeExpertise").value);
 
             let response = await fetch("add_judge.php", {
@@ -1220,6 +1507,7 @@
                 alert("Judge Added Successfully");
                 document.getElementById("judgeName").value = "";
                 document.getElementById("judgeEmail").value = "";
+                document.getElementById("judgePassword").value = "";
                 document.getElementById("judgeExpertise").value = "";
                 loadJudges();
             } else {
@@ -1336,11 +1624,6 @@
                         ${team.project_name || '-'}
                     </td>
 
-                    <!-- COLLEGE -->
-                    <td>
-                        ${team.college_name || 'N/A'}
-                    </td>
-
                     <!-- SCORE -->
                     <td style="font-weight:bold; color:green;">
                         ${team.score}
@@ -1355,6 +1638,8 @@
             `;
                 });
 
+                await loadHackathonWinners('adminHackathonWinners');
+
             } catch (error) {
                 console.error("Leaderboard Error:", error);
 
@@ -1365,6 +1650,71 @@
                 </td>
             </tr>
         `;
+            }
+        }
+
+        async function loadHackathonWinners(containerId) {
+            try {
+                const response = await fetch('get_top3_by_hackathon.php');
+                const hackathons = await response.json();
+                const container = document.getElementById(containerId);
+
+                if (!container) return;
+                if (!hackathons || hackathons.length === 0) {
+                    container.innerHTML = '<p>No hackathon winners available yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = hackathons.map(h => `
+                    <div class="team-card" style="margin-bottom:20px; padding:20px; border:1px solid rgba(0,0,0,0.08); border-radius:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                            <div>
+                                <h4 style="margin:0;">${h.hackathon_name}</h4>
+                                <p style="margin:8px 0 0; color:var(--text-secondary);"><strong>Prize Pool:</strong> ${h.prize_pool || 'N/A'}</p>
+                            </div>
+                            <div style="text-align:right; color:var(--text-secondary);">
+                                <span style="font-size:0.95rem;">Top 3 Teams</span>
+                            </div>
+                        </div>
+                        <table style="width:100%; border-collapse:collapse;">
+                            <thead>
+                                <tr style="border-bottom:1px solid rgba(0,0,0,0.1);">
+                                    <th style="padding:8px 0; text-align:left;">Rank</th>
+                                    <th style="padding:8px 0; text-align:left;">Team</th>
+                                    <th style="padding:8px 0; text-align:left;">Project</th>
+                                    <th style="padding:8px 0; text-align:left;">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${h.winners.map((winner, idx) => `
+                                    <tr>
+                                        <td style="padding:10px 0;">${idx + 1}</td>
+                                        <td style="padding:10px 0;">${winner.team_name}</td>
+                                        <td style="padding:10px 0;">${winner.project_name}</td>
+                                        <td style="padding:10px 0; font-weight:700;">${winner.score}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading hackathon winners:', error);
+            }
+        }
+
+        function toggleHackathonWinners(containerId, button) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                button.textContent = 'Hide Top 3 Winners';
+                if (container.innerHTML.trim() === '') {
+                    loadHackathonWinners(containerId);
+                }
+            } else {
+                container.style.display = 'none';
+                button.textContent = 'Show Top 3 Winners';
             }
         }
 
@@ -1416,8 +1766,7 @@
             if (result === "success") {
                 alert("✅ Score submitted successfully");
 
-                // 🔄 RELOAD BOTH
-                loadSubmissions();
+                // 🔄 RELOAD LEADERBOARD
                 loadLeaderboard();
 
             } else {
@@ -1427,8 +1776,10 @@
 
         function logout() {
             localStorage.removeItem('currentUser');
+            localStorage.removeItem('userData');
             localStorage.removeItem('userType');
-            window.location.href = 'home.html';
+            // ✅ Use replace instead of href to prevent back button access
+            window.location.replace('index.html');
         }
 
         async function loadSystemLogs() {
@@ -1459,9 +1810,9 @@
             document.body.classList.toggle('dark-mode');
 
             if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem("theme", "dark");
+                localStorage.setItem('darkMode', 'true');
             } else {
-                localStorage.setItem("theme", "light");
+                localStorage.setItem('darkMode', 'false');
             }
         }
 
@@ -1502,16 +1853,211 @@
             document.body.classList.toggle('dark-mode');
             
             if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('darkMode', 'true');
             } else {
-                localStorage.setItem('theme', 'light');
+                localStorage.setItem('darkMode', 'false');
             }
         }
 
         // Load dark mode preference
-        if (localStorage.getItem('theme') === 'dark') {
+        if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
         }
+
+        // College Hackathon Management Functions
+        let currentCollegeHackathonStatus = 'pending';
+
+        function switchCollegeHackathonStatus(status) {
+            // Update active button
+            document.querySelectorAll('.status-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-status="${status}"]`).classList.add('active');
+
+            // Load hackathons for selected status
+            currentCollegeHackathonStatus = status;
+            loadCollegeHackathons(status);
+        }
+
+        async function loadCollegeHackathons(status = 'pending') {
+            try {
+                let response = await fetch(`get_college_hackathons.php?status=${status}`);
+                let hackathons = await response.json();
+
+                let container = document.getElementById('collegeHackathonsList');
+                container.innerHTML = '';
+
+                if (hackathons.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 3rem; color: var(--text-secondary); grid-column: 1 / -1;">
+                            <i class="fas fa-inbox" style="font-size: 3rem; opacity: 0.5; margin-bottom: 1rem;"></i>
+                            <p style="margin: 0; font-size: 1.1rem;">No ${status} college hackathons found</p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">${status === 'pending' ? 'Students can submit college hackathons from their dashboard.' : 'Check other status tabs for more hackathons.'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                hackathons.forEach(h => {
+                    const statusClass = `status-${h.status}`;
+                    const statusText = h.status.charAt(0).toUpperCase() + h.status.slice(1);
+
+                    let actionsHtml = '';
+                    if (status === 'pending') {
+                        actionsHtml = `
+                            <button class="action-btn approve-btn" onclick="reviewCollegeHackathon(${h.id}, 'approve')">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="action-btn reject-btn" onclick="reviewCollegeHackathon(${h.id}, 'reject')">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        `;
+                    } else {
+                        actionsHtml = `
+                            <button class="action-btn view-btn" onclick="viewCollegeHackathonDetails(${h.id})">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        `;
+                    }
+
+                    container.innerHTML += `
+                        <div class="college-hackathon-card">
+                            <div class="hackathon-header">
+                                <h3 class="hackathon-title">${h.name}</h3>
+                                <span class="status-badge ${statusClass}">${statusText}</span>
+                            </div>
+
+                            <div class="hackathon-meta">
+                                <div class="meta-item">
+                                    <span class="meta-label">Theme</span>
+                                    <span class="meta-value">${h.theme}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Team Size</span>
+                                    <span class="meta-value">${h.team_size} members</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">College</span>
+                                    <span class="meta-value">${h.college_name}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Location</span>
+                                    <span class="meta-value">${h.location || 'N/A'}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Submitted</span>
+                                    <span class="meta-value">${new Date(h.submitted_at).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <div class="meta-label" style="margin-bottom: 0.5rem;">Student</div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-user" style="color: var(--primary-color);"></i>
+                                    <span>${h.student_name} (${h.student_email})</span>
+                                </div>
+                            </div>
+
+                            ${h.status === 'rejected' && h.rejection_reason ? `
+                                <div style="background: #fee2e2; border: 1px solid #fecaca; border-radius: 6px; padding: 0.75rem; margin-bottom: 1rem;">
+                                    <div style="color: #dc2626; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                                        <i class="fas fa-exclamation-triangle"></i> Rejection Reason
+                                    </div>
+                                    <div style="color: #991b1b; font-size: 0.85rem;">${h.rejection_reason}</div>
+                                </div>
+                            ` : ''}
+
+                            <div class="hackathon-actions">
+                                ${actionsHtml}
+                            </div>
+                        </div>
+                    `;
+                });
+
+            } catch (error) {
+                console.error('Error loading college hackathons:', error);
+                document.getElementById('collegeHackathonsList').innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--danger-color); grid-column: 1 / -1;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>Failed to load college hackathons. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function reviewCollegeHackathon(hackathonId, action) {
+            let rejectionReason = '';
+
+            if (action === 'reject') {
+                rejectionReason = prompt('Please provide a reason for rejection:');
+                if (rejectionReason === null) return; // User cancelled
+                if (rejectionReason.trim() === '') {
+                    alert('Please provide a rejection reason.');
+                    return;
+                }
+            }
+
+            if (!confirm(`Are you sure you want to ${action} this college hackathon?`)) {
+                return;
+            }
+
+            let currentAdmin = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentAdmin || (!currentAdmin.email && !currentAdmin.id)) {
+                alert('Admin login data is missing. Please sign out and log in again.');
+                return;
+            }
+
+            try {
+                let formData = new FormData();
+                formData.append('hackathon_id', hackathonId);
+                formData.append('action', action);
+                if (rejectionReason) {
+                    formData.append('rejection_reason', rejectionReason);
+                }
+                if (currentAdmin.email) {
+                    formData.append('admin_email', currentAdmin.email);
+                }
+                if (currentAdmin.id) {
+                    formData.append('admin_id', currentAdmin.id);
+                }
+
+                let response = await fetch('review_college_hackathon.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let text = await response.text();
+                let result;
+                try {
+                    result = JSON.parse(text);
+                } catch (parseError) {
+                    console.error('Review response parse error:', parseError, text);
+                    alert('An error occurred while processing the request: ' + text);
+                    return;
+                }
+
+                if (result.success) {
+                    alert(result.message);
+                    loadCollegeHackathons(currentCollegeHackathonStatus);
+                } else {
+                    alert('Error: ' + (result.message || 'Unknown server error'));
+                }
+            } catch (error) {
+                console.error('Error reviewing college hackathon:', error);
+                alert('An error occurred while reviewing the hackathon. Please try again.');
+            }
+        }
+
+        function viewCollegeHackathonDetails(hackathonId) {
+            // This could open a modal with full details
+            // For now, just show an alert
+            alert('View details functionality would open a modal with complete hackathon information.');
+        }
+
+        // Add to window object for global access
+        window.switchCollegeHackathonStatus = switchCollegeHackathonStatus;
+        window.reviewCollegeHackathon = reviewCollegeHackathon;
+        window.viewCollegeHackathonDetails = viewCollegeHackathonDetails;
     </script>
 
     <div id="profileBox" class="popup-box">

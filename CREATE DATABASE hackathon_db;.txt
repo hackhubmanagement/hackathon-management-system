@@ -1,0 +1,121 @@
+CREATE DATABASE hackathon_db;
+USE hackathon_db;
+
+-- Admins
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(255)
+);
+
+-- Users
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(255),
+    role VARCHAR(50) DEFAULT 'student'
+);
+
+-- Hackathons
+CREATE TABLE hackathons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200),
+    description TEXT,
+    theme VARCHAR(200),
+    rules TEXT,
+    team_size INT,
+    deadline DATETIME,
+    status VARCHAR(50),
+    source ENUM('admin','college') DEFAULT 'admin'
+);
+
+-- College Hackathons
+CREATE TABLE college_hackathons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    name VARCHAR(200),
+    theme VARCHAR(200),
+    description TEXT,
+    rules TEXT,
+    team_size INT,
+    status VARCHAR(50) DEFAULT 'pending',
+    FOREIGN KEY (student_id) REFERENCES users(id)
+);
+
+-- Teams
+CREATE TABLE teams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    hackathon_id INT,
+    leader_id INT,
+    FOREIGN KEY (hackathon_id) REFERENCES hackathons(id),
+    FOREIGN KEY (leader_id) REFERENCES users(id)
+);
+
+-- Team Members
+CREATE TABLE team_members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    user_id INT,
+    FOREIGN KEY (team_id) REFERENCES teams(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Submissions
+CREATE TABLE submissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT,
+    hackathon_id INT,
+    project_title VARCHAR(200),
+    github_link TEXT,
+    demo_link TEXT,
+    score INT DEFAULT 0,
+    FOREIGN KEY (team_id) REFERENCES teams(id),
+    FOREIGN KEY (hackathon_id) REFERENCES hackathons(id)
+);
+
+-- Judges
+CREATE TABLE judges (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+-- Scores
+CREATE TABLE scores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    submission_id INT,
+    judge_id INT,
+    score INT,
+    feedback TEXT,
+    FOREIGN KEY (submission_id) REFERENCES submissions(id),
+    FOREIGN KEY (judge_id) REFERENCES judges(id)
+);
+
+-- Notifications
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(200),
+    message TEXT,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Announcements
+CREATE TABLE announcements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200),
+    message TEXT,
+    priority VARCHAR(20)
+);
+
+-- Sample Data
+INSERT INTO admins (name, email, password)
+VALUES ('Admin', 'admin@gmail.com', '123');
+
+INSERT INTO users (name, email, password)
+VALUES ('Rishi', 'rishi@gmail.com', '123');

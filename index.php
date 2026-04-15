@@ -23,6 +23,18 @@
                 <p>Innovate · Create · Collaborate</p>
             </div>
 
+            <?php
+            session_start();
+            if (isset($_SESSION['error'])) {
+                echo '<div style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #f5c6cb;">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']);
+            }
+            if (isset($_SESSION['success'])) {
+                echo '<div style="background: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #c3e6cb;">' . htmlspecialchars($_SESSION['success']) . '</div>';
+                unset($_SESSION['success']);
+            }
+            ?>
+
             <!-- Login Section -->
             <div id="loginSection">
                 <div class="login-tabs">
@@ -37,15 +49,15 @@
                     </button>
                 </div>
 
-                <form onsubmit="handleLogin(event)">
+                <form action="login.php" method="POST">
                     <div class="form-group">
                         <label><i class="fas fa-envelope"></i> Email Address</label>
-                        <input type="email" id="email" placeholder="your.email@college.edu" required>
+                        <input type="email" name="email" id="email" placeholder="your.email@college.edu" required>
                     </div>
 
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Password</label>
-                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
                         <div class="forgot-password">
                             <a href="#" onclick="showForgotPassword()">
                                 <i class="fas fa-question-circle"></i> Forgot Password?
@@ -72,30 +84,30 @@
                     <p>Student ID will be auto-generated</p>
                 </div>
 
-                <form onsubmit="handleRegistration(event)">
+                <form action="register.php" method="POST">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Full Name</label>
-                        <input type="text" id="regName" placeholder="Enter your full name" required>
+                        <input type="text" name="name" id="regName" placeholder="Enter your full name" required>
                     </div>
 
                     <div class="form-group">
                         <label><i class="fas fa-university"></i> College Name</label>
-                        <input type="text" id="regCollegeName" placeholder="Enter your college name" required>
+                        <input type="text" name="college_name" id="regCollegeName" placeholder="Enter your college name" required>
                     </div>
 
                     <div class="form-group">
                         <label><i class="fas fa-envelope"></i> Email Address</label>
-                        <input type="email" id="regEmail" placeholder="your.email@college.edu" required>
+                        <input type="email" name="email" id="regEmail" placeholder="your.email@college.edu" required>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label><i class="fas fa-lock"></i> Password</label>
-                            <input type="password" id="regPassword" placeholder="Create password" required>
+                            <input type="password" name="password" id="regPassword" placeholder="Create password" required>
                         </div>
                         <div class="form-group">
                             <label><i class="fas fa-lock"></i> Confirm</label>
-                            <input type="password" id="regConfirmPassword" placeholder="Confirm password" required>
+                            <input type="password" name="confirm_password" id="regConfirmPassword" placeholder="Confirm password" required>
                         </div>
                     </div>
 
@@ -103,7 +115,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label><i class="fas fa-building"></i> Department</label>
-                                <select id="regDepartment">
+                                <select name="department" id="regDepartment">
                                     <option value="">Select Department</option>
                                     <option value="Computer Science">Computer Science</option>
                                     <option value="Information Technology">Information Technology</option>
@@ -119,7 +131,7 @@
                             </div>
                             <div class="form-group">
                                 <label><i class="fas fa-calendar"></i> Year</label>
-                                <select id="regYear">
+                                <select name="year" id="regYear">
                                     <option value="">Select Year</option>
                                     <option value="1">1st Year</option>
                                     <option value="2">2nd Year</option>

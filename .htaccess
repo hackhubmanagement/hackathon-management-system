@@ -1,0 +1,28 @@
+# 🔐 CACHE CONTROL FOR DASHBOARD PAGES - Prevents logged-out users from accessing cached dashboards
+# This ensures the authentication check scripts run on every page load
+
+# Apply no-cache headers to all dashboard HTML files
+<FilesMatch "^(student|admin|judge)\.html$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+    Header set Date "%{TIME_RFC7231}e"
+</FilesMatch>
+
+# Apply no-cache headers to all PHP files (for safety)
+<FilesMatch "\.php$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</FilesMatch>
+
+# Cache static assets for performance (CSS, JS, images)
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|svg|woff|woff2|ttf|ico)$">
+    Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Set default charset
+AddDefaultCharset UTF-8

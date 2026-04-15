@@ -83,6 +83,32 @@ if ($result_student && mysqli_num_rows($result_student) > 0) {
 
 
 // ===================================================
+// 🔹 JUDGE LOGIN
+// ===================================================
+$query_judge = "SELECT * FROM judges WHERE email=?";
+$stmt_judge = mysqli_prepare($conn, $query_judge);
+mysqli_stmt_bind_param($stmt_judge, "s", $email);
+mysqli_stmt_execute($stmt_judge);
+$result_judge = mysqli_stmt_get_result($stmt_judge);
+
+if ($result_judge && mysqli_num_rows($result_judge) > 0) {
+    $judge = mysqli_fetch_assoc($result_judge);
+
+    if (password_verify($password, $judge['password'])) {
+        echo json_encode([
+            "type" => "judge",
+            "id" => $judge['id'],
+            "name" => $judge['name'],
+            "email" => $judge['email'],
+            "expertise" => $judge['expertise'],
+            "role" => "Judge"
+        ]);
+        exit();
+    }
+}
+
+
+// ===================================================
 // 🔹 INVALID LOGIN
 // ===================================================
 echo json_encode([

@@ -36,6 +36,10 @@ function scrollToSection(sectionId) {
     }
 }
 
+function showHelpCenter() {
+    alert("Help Center\n\nEmail: support@hackhub.com\nPhone: +1 (555) 123-4567");
+}
+
 // Animated Counter for Stats
 function animateCounter(element, target) {
     let current = 0;
@@ -49,6 +53,35 @@ function animateCounter(element, target) {
             element.textContent = Math.floor(current).toLocaleString();
         }
     }, 30);
+}
+
+async function loadHomepageStats() {
+    try {
+        const response = await fetch('get_admin_stats.php');
+        if (!response.ok) {
+            throw new Error('Stats fetch failed');
+        }
+
+        const stats = await response.json();
+
+        const heroParticipants = document.getElementById('heroParticipants');
+        const heroHackathons = document.getElementById('heroHackathons');
+        const heroProjects = document.getElementById('heroProjects');
+
+        if (heroParticipants) heroParticipants.textContent = stats.students.toLocaleString();
+        if (heroHackathons) heroHackathons.textContent = stats.hackathons.toLocaleString();
+        if (heroProjects) heroProjects.textContent = stats.submissions.toLocaleString();
+
+        document.querySelectorAll('.stats-section .stat-number[data-key]').forEach(stat => {
+            const key = stat.dataset.key;
+            if (key && stats[key] !== undefined) {
+                stat.dataset.target = stats[key];
+                stat.textContent = '0';
+            }
+        });
+    } catch (error) {
+        console.error('Unable to load homepage stats:', error);
+    }
 }
 
 // Intersection Observer for Stats Animation
@@ -70,10 +103,19 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe the stats section
 const statsSection = document.querySelector('.stats-section');
-if (statsSection) {
-    observer.observe(statsSection);
+
+function initHomepage() {
+    loadHomepageStats();
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+}
+
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', initHomepage);
+} else {
+    initHomepage();
 }
 
 // Navbar scroll effect

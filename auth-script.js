@@ -5,9 +5,12 @@ let currentLoginType = 'student';
 function switchTab(type, e) {
     if (e) e.preventDefault();
     currentLoginType = type;
-    
-    document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
-    event.target.closest('.auth-tab')?.classList.add('active');
+
+    document.querySelectorAll('.tab-btn').forEach(tab => tab.classList.remove('active'));
+    const clickedTab = e?.target.closest('.tab-btn');
+    if (clickedTab) {
+        clickedTab.classList.add('active');
+    }
 }
 
 function showLogin(e) {
@@ -48,24 +51,28 @@ async function handleLogin(e) {
             body: formData
         });
         
-        let result = await response.text().trim();
+        let result;
+        try {
+            result = await response.json();
+        } catch (parseError) {
+            const text = await response.text();
+            result = { type: 'invalid', message: text || 'Invalid email or password' };
+        }
         
-        if (result === 'success') {
-            // Fetch user data
-            const userResponse = await fetch(`login.php?get_user=${email}&type=${currentLoginType}`);
-            const userData = await userResponse.json();
+        if (result.type && result.type !== 'invalid') {
+            localStorage.setItem('userData', JSON.stringify(result));
+            localStorage.setItem('userType', result.type);
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
             
-            localStorage.setItem('currentUser', JSON.stringify(userData));
-            localStorage.setItem('userType', currentLoginType);
-            localStorage.setItem('theme', 'light');
-            
-            if (currentLoginType === 'student') {
-                window.location.href = 'student-new.html';
-            } else {
-                window.location.href = 'admin-new.html';
+            if (result.type === 'student') {
+                window.location.href = 'student.html';
+            } else if (result.type === 'admin') {
+                window.location.href = 'admin.html';
+            } else if (result.type === 'judge') {
+                window.location.href = 'judge.html';
             }
         } else {
-            alert('Invalid email or password');
+            alert(result.message || 'Invalid email or password');
         }
     } catch (error) {
         console.error('Login error:', error);

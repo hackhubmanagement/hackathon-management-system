@@ -2,7 +2,16 @@
 
 include "db.php";
 
-$sql = "SELECT * FROM submissions ORDER BY submitted_at DESC";
+$sql = "SELECT 
+    s.*,
+    GROUP_CONCAT(tm.email SEPARATOR ', ') AS team_members,
+    COALESCE(st.college_name, 'N/A') AS college_name
+FROM submissions s
+LEFT JOIN team_members tm ON s.team_id = tm.team_id
+LEFT JOIN teams t ON s.team_id = t.id
+LEFT JOIN students st ON t.leader_email = st.email
+GROUP BY s.id
+ORDER BY s.submitted_at DESC";
 
 $result = mysqli_query($conn,$sql);
 

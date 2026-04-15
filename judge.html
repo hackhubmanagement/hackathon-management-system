@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judge Dashboard - Hackathon Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+        }
+
+        .modern-header {
+            background: linear-gradient(135deg, #0c64d0 0%, #0b57db 100%);
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.15);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+
+        .logo-section h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            margin-top: 80px;
+        }
+
+        .welcome-section {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .submissions-section {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .submission-card {
+            background: var(--bg-primary);
+            border-radius: 18px;
+            padding: 1.75rem;
+            margin: 0;
+            border: 1px solid rgba(15, 23, 42, 0.25);
+            box-shadow: 0 18px 30px rgba(4, 25, 59, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .submission-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 36px rgba(4, 25, 59, 0.2);
+        }
+
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .team-info {
+            flex: 1 1 320px;
+            min-width: 280px;
+        }
+
+        .submission-card h4 {
+            margin: 0 0 1rem 0;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .team-info p {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .team-info p strong {
+            color: var(--text-primary);
+        }
+
+        .score-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+            min-width: 180px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 110px;
+            padding: 0.5rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            border: 1px solid transparent;
+        }
+
+        .status-pending {
+            background: rgba(59, 130, 246, 0.12);
+            color: #1d4ed8;
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+
+        .status-reviewed {
+            background: rgba(16, 185, 129, 0.12);
+            color: #047857;
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .submission-score {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .submission-links {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .submission-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.9rem 1rem;
+            background: rgba(7, 107, 176, 0.12);
+            color: var(--primary-color);
+            border-radius: 14px;
+            border: 1px solid rgba(7, 107, 176, 0.18);
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .submission-link:hover {
+            background: rgba(7, 107, 176, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .submission-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.85rem 1.3rem;
+            border-radius: 999px;
+            border: 1px solid rgba(15,23,42,0.12);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 700;
+        }
+
+        .filter-btn:hover {
+            background: rgba(59,130,246,0.08);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 12px 24px rgba(59,130,246,0.18);
+        }
+
+        .submission-link:hover {
+            background: rgba(7, 107, 176, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .score-input {
+            width: 80px;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .score-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .score-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-reviewed {
+            background: rgba(59, 130, 246, 0.12);
+            color: #1d4ed8;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            border: 1px solid rgba(12, 100, 208, 0.3);
+            background: linear-gradient(135deg, rgba(12, 100, 208, 0.08) 0%, rgba(12, 100, 208, 0.04) 100%);
+            color: var(--primary-color);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, rgba(12, 100, 208, 0.15) 0%, rgba(12, 100, 208, 0.1) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(12, 100, 208, 0.2);
+        }
+
+        .action-btn.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0857b2 100%);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 6px 16px rgba(12, 100, 208, 0.3);
+        }
+
+        .action-btn.active:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(12, 100, 208, 0.4);
+        }
+
+        .content-panel {
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card,
+        .chart-card,
+        .profile-card,
+        .help-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .stat-card h4 {
+            margin: 0 0 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .chart-card {
+            margin-top: 1rem;
+        }
+
+        .teams-grid,
+        .submission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            align-items: start;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .leaderboard-table thead {
+            background: linear-gradient(135deg, #0c64d0 0%, #0b57db 100%);
+            color: white;
+        }
+
+        .leaderboard-table th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .leaderboard-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background-color: rgba(12, 100, 208, 0.04);
+        }
+
+        .leaderboard-table td {
+            padding: 1rem 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .rank-1 {
+            color: #fbbf24;
+        }
+
+        .rank-2 {
+            color: #a78bfa;
+        }
+
+        .rank-3 {
+            color: #fb923c;
+        }
+
+        .leaderboard-table .score {
+            color: #10b981;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .leaderboard-table .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .submission-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .submission-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(12, 100, 208, 0.08);
+            color: var(--primary-color);
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .submission-link:hover {
+            background: rgba(12, 100, 208, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .leaderboard-table .status-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+        }
+
+        .team-card {
+            background: var(--bg-primary);
+            border-radius: 18px;
+            padding: 1.25rem;
+            border: 1px solid rgba(15, 23, 42, 0.22);
+            box-shadow: 0 14px 28px rgba(4, 25, 59, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 36px rgba(4, 25, 59, 0.12);
+        }
+
+        .team-card h4 {
+            margin: 0 0 0.75rem;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        .team-card p {
+            margin: 0.5rem 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .profile-card p,
+        .help-card p {
+            margin: 0.75rem 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .section-tag {
+            background: rgba(12,100,208,0.12);
+            color: #054c94;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+        }
+
+        .profile-dropdown,
+        .settings-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 180px;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-dropdown h4,
+        .settings-dropdown h4 {
+            margin: 0 0 0.75rem 0;
+            font-size: 0.95rem;
+        }
+
+        .profile-dropdown p,
+        .settings-dropdown p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .settings-dropdown p:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body class="dashboard-page judge-dashboard">
+    <div class="dashboard-wrapper">
+        <!-- Header -->
+        <div class="modern-header">
+            <div class="header-top">
+                <div class="logo-section">
+                    <h1><i class="fas fa-gavel"></i> Judge Dashboard</h1>
+                </div>
+
+                <div class="header-actions">
+                    <button class="icon-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="top-right-profile" id="profileMenu">
+                        <button class="icon-btn" onclick="toggleProfileDropdown()" title="Profile">
+                            <i class="fas fa-user-circle"></i>
+                        </button>
+                        <div class="profile-dropdown">
+                            <h4><i class="fas fa-user"></i> Judge Info</h4>
+                            <p>Name: <span id="judgeNameDisplay">Loading...</span></p>
+                            <p>Expertise: <span id="judgeExpertiseDisplay">...</span></p>
+                        </div>
+                    </div>
+
+                    <div class="settings-menu" id="settingsMenu">
+                        <button class="icon-btn" onclick="toggleSettingsDropdown()" title="Settings">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <div class="settings-dropdown">
+                            <p onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2>Welcome back, <span id="judgeName">Judge</span>! 👋</h2>
+                <p>Review and evaluate project submissions. Your expertise helps determine the winners.</p>
+                
+                <div class="dashboard-actions" style="margin-top: 1.5rem;">
+                    <button class="action-btn active" onclick="showSection('overviewSection')"><i class="fas fa-chart-pie"></i> Overview</button>
+                    <button class="action-btn" onclick="showSection('submissionsSection')"><i class="fas fa-upload"></i> Submissions</button>
+                    <button class="action-btn" onclick="showSection('teamsSection')"><i class="fas fa-users"></i> Teams</button>
+                    <button class="action-btn" onclick="showSection('leaderboardSection')"><i class="fas fa-trophy"></i> Leaderboard</button>
+                    <button class="action-btn" onclick="showSection('profileSection')"><i class="fas fa-user-circle"></i> Profile</button>
+                    <button class="action-btn" onclick="showSection('helpSection')"><i class="fas fa-question-circle"></i> Help</button>
+                </div>
+            </div>
+
+            <section id="overviewSection" class="content-panel active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>Total Submissions</h4>
+                        <p id="totalSubmissions">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Pending Reviews</h4>
+                        <p id="pendingCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Evaluated Projects</h4>
+                        <p id="reviewedCount">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Teams Registered</h4>
+                        <p id="totalTeams">0</p>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="content-header">
+                        <h3>Review Progress</h3>
+                        <span class="section-tag">Live insights</span>
+                    </div>
+                    <div style="position: relative; width: 100%; height: 350px;">
+                        <canvas id="submissionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="submissionsSection" class="content-panel">
+                <div class="content-header">
+                    <h3><i class="fas fa-upload"></i> Project Submissions</h3>
+                    <span class="section-tag">Score & review</span>
+                </div>
+                <div class="submission-filter-bar">
+                    <button class="filter-btn active" data-filter="all" onclick="setSubmissionFilter('all')">All</button>
+                    <button class="filter-btn" data-filter="reviewed" onclick="setSubmissionFilter('reviewed')">Evaluated</button>
+                    <button class="filter-btn" data-filter="pending" onclick="setSubmissionFilter('pending')">Pending</button>
+                </div>
+                <div class="submissions-section submission-grid" id="submissionsList">
+                    <!-- Submissions will be loaded here -->
+                </div>
+            </section>
+
+            <section id="teamsSection" class="content-panel">
+                <div class="content-header">
+                    <h3><i class="fas fa-users"></i> Teams</h3>
+                    <span class="section-tag">Team details</span>
+                </div>
+                <div class="teams-grid" id="teamsList">
+                    <!-- Teams will be loaded here -->
+                </div>
+            </section>
+
+            <section id="leaderboardSection" class="content-panel">
+                <div class="content-header">
+                    <h3><i class="fas fa-trophy"></i> Leaderboard</h3>
+                    <span class="section-tag">Top scoring projects</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>RANK</th>
+                                <th>TEAM NAME</th>
+                                <th>PROJECT</th>
+                                <th>SCORE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardList">
+                            <!-- Leaderboard entries will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 32px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <h3>Hackathon Top 3 Winners</h3>
+                            <p class="section-tag">Each hackathon shows its prize pool and the top 3 scoring teams.</p>
+                        </div>
+                        <button class="action-btn" type="button" onclick="toggleHackathonWinners('judgeHackathonWinners', this)">Show Top 3 Winners</button>
+                    </div>
+                    <div id="judgeHackathonWinners" style="display:none;"></div>
+                </div>
+            </section>
+
+            <section id="profileSection" class="content-panel">
+                <div class="content-header">
+                    <h3><i class="fas fa-user"></i> Profile</h3>
+                    <span class="section-tag">Judge settings</span>
+                </div>
+                <div class="profile-card">
+                    <h4>Judge Profile</h4>
+                    <p><strong>Name:</strong> <span id="profileName">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="profileEmail">Loading...</span></p>
+                    <p><strong>Expertise:</strong> <span id="profileExpertise">Loading...</span></p>
+                    <p><strong>Role:</strong> Judge</p>
+                </div>
+            </section>
+
+            <section id="helpSection" class="content-panel">
+                <div class="content-header">
+                    <h3><i class="fas fa-question-circle"></i> Help Center</h3>
+                    <span class="section-tag">Need assistance?</span>
+                </div>
+                <div class="help-card">
+                    <h4>Support Resources</h4>
+                    <p>Need help reviewing projects? Use the submissions section to score pending entries and track progress with the dashboard charts.</p>
+                    <p>If you want to change your score entry, review the submission and update it again.</p>
+                    <p>You can log out any time using the settings menu in the top right.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        let judgeData = null;
+        let submissions = [];
+        let teams = [];
+        let chartInstance = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadJudgeData();
+            initHistoryGuard();
+            loadSubmissions();
+            loadTeams();
+            loadHackathonWinners('judgeHackathonWinners');
+        });
+
+        function loadJudgeData() {
+            const storedData = localStorage.getItem('userData') || localStorage.getItem('currentUser');
+            const userType = localStorage.getItem('userType');
+
+            if (!storedData || userType !== 'judge') {
+                window.location.replace('index.html');
+                return;
+            }
+
+            judgeData = JSON.parse(storedData);
+            document.getElementById('judgeName').textContent = judgeData.name || 'Judge';
+            document.getElementById('judgeNameDisplay').textContent = judgeData.name || 'Judge';
+            document.getElementById('judgeExpertiseDisplay').textContent = judgeData.expertise || 'N/A';
+            document.getElementById('profileName').textContent = judgeData.name || 'Judge';
+            document.getElementById('profileEmail').textContent = judgeData.email || 'Not available';
+            document.getElementById('profileExpertise').textContent = judgeData.expertise || 'N/A';
+        }
+
+        function initHistoryGuard() {
+            history.replaceState(null, null, location.href);
+            window.addEventListener('popstate', function () {
+                history.replaceState(null, null, location.href);
+            });
+        }
+
+        function loadSubmissions() {
+            fetch('get_submissions.php')
+                .then(response => response.json())
+                .then(data => {
+                    submissions = data;
+                    currentSubmissionFilter = 'all';
+                    updateFilterButtons();
+                    updateOverview();
+                    applySubmissionFilter();
+                    displayLeaderboard(data);
+                    renderChart(data);
+                })
+                .catch(error => {
+                    console.error('Error loading submissions:', error);
+                    document.getElementById('submissionsList').innerHTML = '<p>Error loading submissions.</p>';
+                });
+        }
+
+        function loadTeams() {
+            fetch('get_teams.php')
+                .then(response => response.json())
+                .then(data => {
+                    teams = data;
+                    displayTeams(data);
+                    updateOverview();
+                })
+                .catch(error => {
+                    console.error('Error loading teams:', error);
+                    document.getElementById('teamsList').innerHTML = '<p>Error loading teams.</p>';
+                });
+        }
+
+        let currentSubmissionFilter = 'all';
+
+        function updateOverview() {
+            const totalSubmissions = submissions.length;
+            const pendingCount = submissions.filter(item => item.status === 'pending').length;
+            const reviewedCount = submissions.filter(item => item.status === 'reviewed').length;
+            const totalTeams = teams.length;
+
+            document.getElementById('totalSubmissions').textContent = totalSubmissions;
+            document.getElementById('pendingCount').textContent = pendingCount;
+            document.getElementById('reviewedCount').textContent = reviewedCount;
+            document.getElementById('totalTeams').textContent = totalTeams;
+        }
+
+        function setSubmissionFilter(filter) {
+            currentSubmissionFilter = filter;
+            updateFilterButtons();
+            applySubmissionFilter();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === currentSubmissionFilter);
+            });
+        }
+
+        function applySubmissionFilter() {
+            if (currentSubmissionFilter === 'all') {
+                displaySubmissions(submissions);
+            } else {
+                const filtered = submissions.filter(item => item.status === currentSubmissionFilter);
+                displaySubmissions(filtered);
+            }
+        }
+
+        function displaySubmissions(submissionsData) {
+            const container = document.getElementById('submissionsList');
+
+            if (!submissionsData || submissionsData.length === 0) {
+                container.innerHTML = '<p>No submissions found.</p>';
+                return;
+            }
+
+            container.innerHTML = submissionsData.map(submission => `
+                <div class="submission-card">
+                    <div class="submission-header">
+                        <div class="team-info">
+                            <h4>${submission.project_name}</h4>
+                            <p><strong>Team:</strong> ${submission.team_name}</p>
+                            <p><strong>Members:</strong> ${submission.team_members || 'No members listed'}</p>
+                            <p><strong>Domain:</strong> ${submission.domain}</p>
+                            <p><strong>Submitted:</strong> ${new Date(submission.submitted_at).toLocaleDateString()}</p>
+                            <p><strong>Description:</strong> ${submission.description || 'No description provided.'}</p>
+                            <div class="submission-links">
+                                ${submission.github_repo ? `<a href="${submission.github_repo}" target="_blank" class="submission-link"><i class="fab fa-github"></i> Project Repo</a>` : ''}
+                                ${submission.demo_link ? `<a href="${submission.demo_link}" target="_blank" class="submission-link"><i class="fas fa-video"></i> Demo Link</a>` : ''}
+                            </div>
+                        </div>
+                        <div class="score-section">
+                            <span class="status-badge ${submission.status === 'reviewed' ? 'status-reviewed' : 'status-pending'}">
+                                ${submission.status === 'reviewed' ? 'Evaluated' : 'Pending'}
+                            </span>
+                            ${submission.score ? `<p class="submission-score">Score: ${submission.score}/100</p>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayTeams(teamsData) {
+            const container = document.getElementById('teamsList');
+
+            if (!teamsData || teamsData.length === 0) {
+                container.innerHTML = '<p>No teams available.</p>';
+                return;
+            }
+
+            container.innerHTML = teamsData.map(team => `
+                <div class="team-card">
+                    <h4>${team.team_name}</h4>
+                    <p><strong>Leader:</strong> ${team.leader_email}</p>
+                    <p><strong>Problem:</strong> ${team.selected_problem || 'Not selected'}</p>
+                </div>
+            `).join('');
+        }
+
+        function displayLeaderboard(submissionsData) {
+            const container = document.getElementById('leaderboardList');
+            const sorted = [...submissionsData]
+                .filter(item => item.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 10);
+
+            if (sorted.length === 0) {
+                container.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem;">No scores available yet.</td></tr>';
+                return;
+            }
+
+            const getRankIcon = (index) => {
+                if (index === 0) return '🥇';
+                if (index === 1) return '🥈';
+                if (index === 2) return '🥉';
+                return '🎖️';
+            };
+
+            container.innerHTML = sorted.map((submission, index) => `
+                <tr>
+                    <td>
+                        <div class="rank-badge rank-${index + 1}">
+                            <span>${getRankIcon(index)}</span>
+                            <span>${index + 1}</span>
+                        </div>
+                    </td>
+                    <td><strong>${submission.team_name}</strong></td>
+                    <td>${submission.project_name}</td>
+                    <td class="score">${submission.score}/100</td>
+                    <td>
+                        <span class="status-badge status-${submission.status === 'reviewed' ? 'evaluated' : 'pending'}">
+                            ${submission.status === 'reviewed' ? '👤 Evaluated' : '⏳ Pending'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function loadHackathonWinners(containerId) {
+            try {
+                const response = await fetch('get_top3_by_hackathon.php');
+                const hackathons = await response.json();
+                const container = document.getElementById(containerId);
+
+                if (!container) return;
+                if (!hackathons || hackathons.length === 0) {
+                    container.innerHTML = '<p>No hackathon winners have been announced yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = hackathons.map(h => `
+                    <div class="submission-card" style="margin-bottom:20px; padding:18px; border:1px solid rgba(0,0,0,0.08); border-radius:16px; background: #fff;">
+                        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                            <div>
+                                <h4 style="margin:0;">${h.hackathon_name}</h4>
+                                <p style="margin:8px 0 0; color:#555;">Prize Pool: ${h.prize_pool || 'N/A'}</p>
+                            </div>
+                            <div style="color:#777; font-size:0.95rem;">Top 3 teams</div>
+                        </div>
+                        <table style="width:100%; border-collapse:collapse;">
+                            <thead>
+                                <tr style="border-bottom:1px solid rgba(0,0,0,0.1);">
+                                    <th style="padding:10px 0; text-align:left;">Rank</th>
+                                    <th style="padding:10px 0; text-align:left;">Team</th>
+                                    <th style="padding:10px 0; text-align:left;">Project</th>
+                                    <th style="padding:10px 0; text-align:left;">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${h.winners.map((winner, idx) => `
+                                    <tr>
+                                        <td style="padding:10px 0;">${idx + 1}</td>
+                                        <td style="padding:10px 0;">${winner.team_name}</td>
+                                        <td style="padding:10px 0;">${winner.project_name}</td>
+                                        <td style="padding:10px 0; font-weight:600;">${winner.score}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading hackathon winners:', error);
+            }
+        }
+
+        function toggleHackathonWinners(containerId, button) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                button.textContent = 'Hide Top 3 Winners';
+                if (container.innerHTML.trim() === '') {
+                    loadHackathonWinners(containerId);
+                }
+            } else {
+                container.style.display = 'none';
+                button.textContent = 'Show Top 3 Winners';
+            }
+        }
+
+        function renderChart(submissionsData) {
+            try {
+                const labels = ['Pending', 'Evaluated'];
+                const pending = submissionsData.filter(item => item.status === 'pending').length;
+                const reviewed = submissionsData.filter(item => item.status === 'reviewed').length;
+                
+                const canvasElement = document.getElementById('submissionChart');
+                if (!canvasElement) {
+                    console.error('Canvas element not found');
+                    return;
+                }
+                
+                const ctx = canvasElement.getContext('2d');
+
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                chartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels,
+                        datasets: [{
+                            label: 'Review Status',
+                            data: [pending, reviewed],
+                            backgroundColor: ['#ffc107', '#17a2b8'],
+                            borderWidth: 2,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Chart render error:', error);
+            }
+        }
+
+        function submitScore(submissionId) {
+            const scoreInput = document.getElementById(`score-${submissionId}`);
+            const score = parseInt(scoreInput.value);
+
+            if (isNaN(score) || score < 0 || score > 100) {
+                alert('Please enter a valid score between 0 and 100.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('id', submissionId);
+            formData.append('score', score);
+
+            fetch('update_score.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'success') {
+                    alert('Score submitted successfully!');
+                    loadSubmissions();
+                } else {
+                    alert('Error submitting score: ' + result);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting score.');
+            });
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.action-btn').forEach(btn => btn.classList.remove('active'));
+
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+            }
+
+            const buttons = Array.from(document.querySelectorAll('.action-btn'));
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(sectionId.replace('Section','').toLowerCase())) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function toggleProfileDropdown() {
+            const dropdown = document.querySelector('.profile-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleSettingsDropdown() {
+            const dropdown = document.querySelector('.settings-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            localStorage.removeItem('userData');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('userType');
+            // ✅ Use replace instead of href to prevent back button access
+            window.location.replace('index.html');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>
