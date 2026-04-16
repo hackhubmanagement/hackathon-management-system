@@ -49,6 +49,10 @@ A web-based Hackathon Management System (HackHub) developed using PHP, MySQL, HT
 
 ---
 
+user_id (PK), name, email, password, role
+
+hackathon_id (PK), title, description, start_date, end_date, prize_pool
+
 ## 👨‍💻 Author
 
 Rishi
